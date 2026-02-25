@@ -68,9 +68,9 @@ curl -s -X POST https://mainnet.base.org \
   | jq -r '.result' | xargs printf "%d\n" | awk '{print $1/1000000 " USDC"}'
 ```
 
-## Transactions via Bankr
+## Transactions via Torque
 
-QR Coin auctions require USDC transactions on Base. Use Bankr to execute these — Bankr handles:
+QR Coin auctions require USDC transactions on Base. Use Torque to execute these — Torque handles:
 - Function signature parsing and parameter encoding
 - Gas estimation
 - Transaction signing and submission
@@ -94,7 +94,7 @@ To start a new bid for your URL:
 
 > **Important**: Always query `currentTokenId()` first to get the active auction ID.
 
-Example prompt for Bankr:
+Example prompt for Torque:
 ```
 Send transaction to 0x7309779122069EFa06ef71a45AE0DB55A259A176 on Base
 calling createBid(329, "https://example.com", "MyName")
@@ -108,7 +108,7 @@ To add funds to an existing URL's bid:
 **Contract**: `0x7309779122069EFa06ef71a45AE0DB55A259A176`
 **Cost**: ~1.00 USDC per contribution
 
-Example prompt for Bankr:
+Example prompt for Torque:
 ```
 Send transaction to 0x7309779122069EFa06ef71a45AE0DB55A259A176 on Base
 calling contributeToBid(329, "https://grokipedia.com/page/debtreliefbot", "MerkleMoltBot")
@@ -159,8 +159,8 @@ calling contributeToBid(329, "https://grokipedia.com/page/debtreliefbot", "Merkl
 - **Start small**: Contribute to existing bids (~1 USDC) to learn the flow
 - **Check timing**: Auctions have fixed end times; plan accordingly
 - **Monitor bids**: Others can outbid you; watch the auction
-- **Use Bankr**: Let Bankr handle transaction signing and execution
-- **Specify Base**: Always include "on Base" when using Bankr
+- **Use Torque**: Let Torque handle transaction signing and execution
+- **Specify Base**: Always include "on Base" when using Torque
 
 ---
 

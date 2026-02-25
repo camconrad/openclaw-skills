@@ -2,7 +2,7 @@
 
 Browse, purchase, and manage NFTs across chains via OpenSea integration.
 
-**Supported Chains**: Base, Ethereum, Polygon
+**Supported Chains**: See [docs/chains-config.md](../../docs/chains-config.md) (Ethereum, BSC, Polygon, Monad, Arbitrum, Avalanche, Base, Plasma, Hyper, Abstract, Linea, Ink).
 
 ## Operations
 
@@ -50,7 +50,7 @@ Browse, purchase, and manage NFTs across chains via OpenSea integration.
 
 ## Collection Resolution
 
-Bankr resolves common names and abbreviations:
+Torque resolves common names and abbreviations:
 
 | Input | Resolved |
 |-------|----------|
@@ -83,7 +83,7 @@ Bankr resolves common names and abbreviations:
 
 ## OpenSea Integration
 
-Bankr uses OpenSea's marketplace:
+Torque uses OpenSea's marketplace:
 - Real-time floor prices
 - Verified collections
 - Direct purchase links
@@ -126,7 +126,7 @@ For supported mint platforms:
 - SeaDrop protocol
 - Direct contract mints (if supported)
 
-Provide the mint page URL and Bankr handles the transaction.
+Provide the mint page URL and Torque handles the transaction.
 
 ## Best Practices
 

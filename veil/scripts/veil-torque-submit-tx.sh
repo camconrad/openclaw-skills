@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
-# Submit an unsigned EVM tx JSON to Bankr for signing+submission.
+# Submit an unsigned EVM tx JSON to Torque for signing+submission.
 # Input: JSON on stdin or a file path as $1.
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$SCRIPT_DIR/_common.sh"
 
-need_bankr_config
+need_torque_config
 
 if [[ $# -gt 0 ]]; then
   TX_JSON=$(cat "$1")
@@ -24,4 +24,4 @@ fi
 PROMPT=$'Submit this transaction (do not change any fields):\n'
 PROMPT+="$TX_JSON"
 
-"$SCRIPT_DIR/veil-bankr-prompt.sh" "$PROMPT"
+"$SCRIPT_DIR/veil-torque-prompt.sh" "$PROMPT"

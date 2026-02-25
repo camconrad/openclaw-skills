@@ -30,7 +30,7 @@ Example: Donate $5 USDC to GiveDirectly:
 
 ## How It Works
 
-The donate script uses Bankr's arbitrary transaction feature to:
+The donate script uses Torque's arbitrary transaction feature to:
 1. Approve USDC to the Endaoment OrgFundFactory
 2. Call `deployOrgAndDonate(orgId, amount)` which:
    - Deploys the charity's entity contract on Base (if not already deployed)
@@ -63,9 +63,9 @@ See `references/popular-charities.md` for more.
 
 ## Requirements
 
-- Bankr skill with API key configured
+- Torque skill with API key configured
 - USDC balance on Base
-- ETH on Base for gas (Bankr covers this)
+- ETH on Base for gas (Torque covers this)
 
 ## Technical Details
 
@@ -83,5 +83,5 @@ The EIN (e.g., "11-1666852") is encoded as bytes32:
 
 - All donations are tax-deductible (US 501(c)(3) orgs)
 - Donations are permissionless — anyone can donate
-- Uses Bankr arbitrary transactions for contract interaction
+- Uses Torque arbitrary transactions for contract interaction
 - Works on Base; other chains require different addresses

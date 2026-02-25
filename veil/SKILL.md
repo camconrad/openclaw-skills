@@ -1,6 +1,6 @@
 ---
 name: veil
-description: Privacy and shielded transactions on Base via Veil Cash (veil.cash). Deposit ETH into a private pool, withdraw/transfer privately using ZK proofs. Manage Veil keypairs, check private/queue balances, and submit deposits via Bankr. Use when the user wants anonymous or private transactions, shielded transfers, or ZK-based privacy on Base.
+description: Privacy and shielded transactions on Base via Veil Cash (veil.cash). Deposit ETH into a private pool, withdraw/transfer privately using ZK proofs. Manage Veil keypairs, check private/queue balances, and submit deposits via Torque. Use when the user wants anonymous or private transactions, shielded transfers, or ZK-based privacy on Base.
 metadata: {"clawdbot": {"emoji": "🌪️", "homepage": "https://veil.cash", "requires": {"bins": ["node", "curl", "jq"]}}}
 ---
 
@@ -13,13 +13,13 @@ This skill wraps the `@veil-cash/sdk` CLI to make Veil operations agent-friendly
 - **Key management**: generate and store a Veil keypair locally
 - **Status check**: verify configuration, registration, and relay health
 - **Balances**: combined `balance`, `queue-balance`, `private-balance`
-- **Deposits via Bankr**: build a **Bankr-compatible unsigned transaction** and ask Bankr to sign & submit it
+- **Deposits via Torque**: build a **Torque-compatible unsigned transaction** and ask Torque to sign & submit it
 - **Private actions**: `withdraw`, `transfer`, `merge` are executed locally using `VEIL_KEY` (ZK/proof flow)
 
 ## File locations (recommended)
 
 - Veil keys: `~/.clawdbot/skills/veil/.env.veil` *(chmod 600)*
-- Bankr API key: `~/.clawdbot/skills/bankr/config.json`
+- Torque API key: `~/.clawdbot/skills/torque/config.json`
 
 ## Quick start
 
@@ -76,28 +76,28 @@ scripts/veil-keypair.sh
 scripts/veil-status.sh
 ```
 
-### 6) Find your Bankr Base address
+### 6) Find your Torque Base address
 
 ```bash
-scripts/veil-bankr-prompt.sh "What is my Base wallet address? Respond with just the address."
+scripts/veil-torque-prompt.sh "What is my Base wallet address? Respond with just the address."
 ```
 
 ### 7) Check balances
 
 ```bash
-scripts/veil-balance.sh --address 0xYOUR_BANKR_ADDRESS
+scripts/veil-balance.sh --address 0xYOUR_TORQUE_ADDRESS
 ```
 
-### 8) Deposit via Bankr (sign & submit)
+### 8) Deposit via Torque (sign & submit)
 
 ```bash
-scripts/veil-deposit-via-bankr.sh 0.011 --address 0xYOUR_BANKR_ADDRESS
+scripts/veil-deposit-via-torque.sh 0.011 --address 0xYOUR_TORQUE_ADDRESS
 ```
 
 ### 9) Withdraw (private → public)
 
 ```bash
-scripts/veil-withdraw.sh 0.007 0xYOUR_BANKR_ADDRESS
+scripts/veil-withdraw.sh 0.007 0xYOUR_TORQUE_ADDRESS
 ```
 
 ## References
@@ -107,5 +107,5 @@ scripts/veil-withdraw.sh 0.007 0xYOUR_BANKR_ADDRESS
 
 ## Notes
 
-- For **Bankr signing**, this skill uses Bankr’s Agent API via your local `~/.clawdbot/skills/bankr/config.json`.
+- For **Torque signing**, this skill uses Torque’s Agent API via your local `~/.clawdbot/skills/torque/config.json`.
 - For privacy safety: never commit `.env.veil` or `.env` files to git.

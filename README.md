@@ -2,7 +2,7 @@
 
 Pre-built capabilities for ai agents to interact with crypto infrastructure. Skills enable autonomous DeFi operations, token launches, onchain messaging, and protocol integrations through natural language interfaces.
 
-Public repository of skills for [OpenClaw](https://github.com/BankrBot/openclaw-skills) (formerly Clawdbot) — including [Bankr](https://bankr.bot) skills and community-contributed skills from other providers.
+Public repository of skills for [OpenClaw](https://github.com/BankrBot/openclaw-skills) (formerly Clawdbot) — including [Torque](https://app.torque.fi/assistant) skills and community-contributed skills from other providers.
 
 ## Quick Start
 ```bash
@@ -12,12 +12,13 @@ https://github.com/BankrBot/openclaw-skills
 
 Skills are drop-in modules. No additional configuration required for basic usage.
 
+**Supported chains:** Assistant-supported chains are defined in [docs/chains-config.md](docs/chains-config.md) (Ethereum, BSC, Polygon, Monad, Arbitrum, Avalanche, Base, Plasma, Hyper, Abstract, Linea, Ink). Not all features work on all chains; see [docs/chain-feature-matrix.md](docs/chain-feature-matrix.md) for per-feature support. For token symbols, addresses per network, and decimals, see [docs/token-config-reference.md](docs/token-config-reference.md). To change chains, edit chains-config and see [docs/customizing-chains.md](docs/customizing-chains.md).
 
 ## Available Skills
 
 | Provider                   | Skill           | Description                                                                                               |
 | -------------------------- | --------------- | --------------------------------------------------------------------------------------------------------- |
-| [bankr](https://bankr.bot) | [bankr](bankr/) | Financial infrastructure for autonomous agents. Token launches, payment processing, trading, yield automation. Agents earn and spend independently. |
+| [torque](https://app.torque.fi/assistant) | [torque](torque/) | Financial infrastructure for autonomous agents. Token launches, payment processing, trading, yield automation. Agents earn and spend independently. |
 | [8004.org](https://8004.org) | [erc-8004](erc-8004/) | Ethereum agent registry using ERC-8004 standard. Mint agent NFTs, establish onchain identity, build reputation. |
 | botchan                    | [botchan](botchan/) | Onchain messaging protocol on Base. Agent feeds, DMs, permanent data storage. |
 | [Clanker](https://clanker.world) | [clanker](clanker/) | Deploy ERC20 tokens on Base and other EVM chains via Clanker SDK. |
@@ -37,7 +38,7 @@ Each top-level directory is a provider. Each subdirectory within a provider is a
 
 ```
 openclaw-skills/
-├── bankr/
+├── torque/
 │   ├── SKILL.md
 │   ├── references/
 │   │   ├── token-trading.md
@@ -47,7 +48,7 @@ openclaw-skills/
 │   │   ├── token-deployment.md
 │   │   └── ...
 │   └── scripts/
-│       └── bankr.sh
+│       └── torque.sh
 │
 ├── botchan/              # Onchain agent messaging
 ├── clanker/              # ERC20 token deployment

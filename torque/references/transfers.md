@@ -4,17 +4,17 @@ Transfer tokens to addresses, ENS names, or social handles.
 
 ## Supported Transfers
 
-- **EVM Chains**: Base, Polygon, Ethereum, Unichain
+- **EVM Chains**: Ethereum, BSC, Polygon, Monad, Arbitrum, Avalanche, Base, Plasma, Hyper, Abstract, Linea, Ink (see [chains-config](../../docs/chains-config.md))
   - Native tokens: ETH, MATIC
   - ERC20 tokens: USDC, USDT, WETH, etc.
-- **Solana**: SOL and SPL tokens
+- **EVM**: Native and ERC-20 tokens on supported chains
 
 ## Recipient Formats
 
 | Format | Example | Description |
 |--------|---------|-------------|
 | Address | `0x1234...abcd` | Direct wallet address (EVM) |
-| Address | `9x...abc` | Direct wallet address (Solana) |
+| Address | `0x...` | Direct wallet address (EVM) |
 | ENS | `vitalik.eth` | Ethereum Name Service |
 | Twitter | `@elonmusk` | Twitter/X username |
 | Farcaster | `@dwr.eth` | Farcaster username |
@@ -54,7 +54,7 @@ Transfer tokens to addresses, ENS names, or social handles.
 
 ## Chain Selection
 
-If not specified, Bankr selects automatically based on:
+If not specified, Torque selects automatically based on:
 - Recipient activity patterns
 - Gas costs
 - Token availability

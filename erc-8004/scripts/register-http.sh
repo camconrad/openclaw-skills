@@ -6,9 +6,9 @@
 
 set -e
 
-# Require Bankr CLI
-if ! command -v bankr >/dev/null 2>&1; then
-  echo "Bankr CLI not found. Install with: bun install -g @bankr/cli" >&2
+# Require Torque CLI
+if ! command -v torque >/dev/null 2>&1; then
+  echo "Torque CLI not found. Install with: bun install -g @torque/cli" >&2
   exit 1
 fi
 
@@ -47,8 +47,8 @@ console.log(selector + offset + len + data);
 
 echo "Registering on-chain..." >&2
 
-# Submit via Bankr
-RESULT=$(bankr prompt "Submit this transaction on $CHAIN: {\"to\": \"$IDENTITY_REGISTRY\", \"data\": \"$CALLDATA\", \"value\": \"0\", \"chainId\": $CHAIN_ID}" 2>/dev/null)
+# Submit via Torque
+RESULT=$(torque prompt "Submit this transaction on $CHAIN: {\"to\": \"$IDENTITY_REGISTRY\", \"data\": \"$CALLDATA\", \"value\": \"0\", \"chainId\": $CHAIN_ID}" 2>/dev/null)
 
 if echo "$RESULT" | grep -qE "$EXPLORER/tx/0x[a-fA-F0-9]{64}"; then
   TX_HASH=$(echo "$RESULT" | grep -oE "$EXPLORER/tx/0x[a-fA-F0-9]{64}" | grep -oE '0x[a-fA-F0-9]{64}' | head -1)

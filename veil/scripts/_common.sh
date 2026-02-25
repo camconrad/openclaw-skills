@@ -8,7 +8,7 @@ SDK_REPO="${VEIL_SDK_REPO:-$OPENCLAW_WORKSPACE/repos/veildotcash-sdk}"
 VEIL_DIR="$HOME/.clawdbot/skills/veil"
 VEIL_ENV="$VEIL_DIR/.env.veil"
 VEIL_ENV_EXTRA="$VEIL_DIR/.env"   # optional (RPC_URL, etc)
-BANKR_CONFIG="${BANKR_CONFIG:-$HOME/.clawdbot/skills/bankr/config.json}"
+TORQUE_CONFIG="${TORQUE_CONFIG:-$HOME/.clawdbot/skills/torque/config.json}"
 
 need_bin() {
   command -v "$1" >/dev/null 2>&1 || { echo "Missing required binary: $1" >&2; exit 1; }
@@ -63,22 +63,22 @@ ensure_veil_env_perms() {
   [[ -f "$VEIL_ENV_EXTRA" ]] && chmod 600 "$VEIL_ENV_EXTRA" 2>/dev/null || true
 }
 
-need_bankr() {
-  # Prefer Bankr CLI
-  if command -v bankr >/dev/null 2>&1; then
+need_torque() {
+  # Prefer Torque CLI
+  if command -v torque >/dev/null 2>&1; then
     return 0
   fi
   # Fall back to config file for curl-based scripts
-  if [[ -f "$BANKR_CONFIG" ]]; then
+  if [[ -f "$TORQUE_CONFIG" ]]; then
     need_bin jq
     need_bin curl
     return 0
   fi
-  echo "Bankr CLI not found. Install with: bun install -g @bankr/cli && bankr login" >&2
+  echo "Torque CLI not found. Install with: bun install -g @torque/cli && torque login" >&2
   exit 1
 }
 
 # Legacy alias
-need_bankr_config() {
-  need_bankr
+need_torque_config() {
+  need_torque
 }

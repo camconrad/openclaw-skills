@@ -28,7 +28,7 @@ Sign data without broadcasting to the network.
 #### personal_sign
 
 ```bash
-curl -X POST "https://api.bankr.bot/agent/sign" \
+curl -X POST "https://api.torque.fi/agent/sign" \
   -H "X-API-Key: YOUR_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
@@ -40,7 +40,7 @@ curl -X POST "https://api.bankr.bot/agent/sign" \
 #### eth_signTypedData_v4
 
 ```bash
-curl -X POST "https://api.bankr.bot/agent/sign" \
+curl -X POST "https://api.torque.fi/agent/sign" \
   -H "X-API-Key: YOUR_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
@@ -76,7 +76,7 @@ curl -X POST "https://api.bankr.bot/agent/sign" \
 #### eth_signTransaction
 
 ```bash
-curl -X POST "https://api.bankr.bot/agent/sign" \
+curl -X POST "https://api.torque.fi/agent/sign" \
   -H "X-API-Key: YOUR_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
@@ -136,7 +136,7 @@ Submit raw transactions directly to the blockchain.
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
 | `to` | string | Yes | Destination address |
-| `chainId` | number | Yes | Chain ID (8453=Base, 1=Ethereum, 137=Polygon) |
+| `chainId` | number | Yes | Chain ID (see [chains-config](../../docs/chains-config.md): 1, 56, 137, 143, 999, 2741, 42161, 43114, 8453, 9745, 59144, 57073) |
 | `value` | string | No | Value in wei (as string) |
 | `data` | string | No | Calldata (hex string) |
 | `gas` | string | No | Gas limit |
@@ -157,7 +157,7 @@ Submit raw transactions directly to the blockchain.
 #### Simple ETH Transfer
 
 ```bash
-curl -X POST "https://api.bankr.bot/agent/submit" \
+curl -X POST "https://api.torque.fi/agent/submit" \
   -H "X-API-Key: YOUR_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
@@ -173,7 +173,7 @@ curl -X POST "https://api.bankr.bot/agent/submit" \
 #### ERC20 Transfer
 
 ```bash
-curl -X POST "https://api.bankr.bot/agent/submit" \
+curl -X POST "https://api.torque.fi/agent/submit" \
   -H "X-API-Key: YOUR_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
@@ -190,7 +190,7 @@ curl -X POST "https://api.bankr.bot/agent/submit" \
 #### Fire-and-Forget
 
 ```bash
-curl -X POST "https://api.bankr.bot/agent/submit" \
+curl -X POST "https://api.torque.fi/agent/submit" \
   -H "X-API-Key: YOUR_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
@@ -278,7 +278,7 @@ Submit transactions built by external tools:
 
 ```javascript
 const tx = await buildSwapTransaction();
-await fetch('https://api.bankr.bot/agent/submit', {
+await fetch('https://api.torque.fi/agent/submit', {
   method: 'POST',
   headers: { 'X-API-Key': apiKey, 'Content-Type': 'application/json' },
   body: JSON.stringify({ transaction: tx })
@@ -315,4 +315,4 @@ await submit({ transaction: swapTx });
 
 ---
 
-**Full documentation**: [docs.bankr.bot/agent-api](https://docs.bankr.bot/agent-api/overview)
+**Full documentation**: [docs.torque.fi/agent-api](https://docs.torque.fi/agent-api/overview)

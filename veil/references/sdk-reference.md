@@ -183,11 +183,11 @@ veil merge ETH 0.1 --quiet
 
 ## For AI Agents
 
-Use `--unsigned` to get Bankr-compatible transaction payloads:
+Use `--unsigned` to get Torque-compatible transaction payloads:
 
 ```bash
 veil deposit ETH 0.1 --unsigned
 # {"to":"0x...","data":"0x...","value":"100000000000000000","chainId":8453}
 ```
 
-The `--unsigned` flag outputs the Bankr arbitrary transaction format for agent signing.
+The `--unsigned` flag outputs the Torque arbitrary transaction format for agent signing.

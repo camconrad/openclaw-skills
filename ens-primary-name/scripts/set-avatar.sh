@@ -13,9 +13,9 @@ set -e
 ENS_NAME="${1:?Usage: set-avatar.sh <ens-name> <avatar-url>}"
 AVATAR_URL="${2:?Usage: set-avatar.sh <ens-name> <avatar-url>}"
 
-# Require Bankr CLI
-if ! command -v bankr >/dev/null 2>&1; then
-  echo "Bankr CLI not found. Install with: bun install -g @bankr/cli" >&2
+# Require Torque CLI
+if ! command -v torque >/dev/null 2>&1; then
+  echo "Torque CLI not found. Install with: bun install -g @torque/cli" >&2
   exit 1
 fi
 
@@ -84,8 +84,8 @@ console.log('0x' + selector + node + keyOffset + valueOffset + keyLen + keyData 
 echo "Submitting to resolver on Ethereum mainnet..." >&2
 echo "⚠️  Note: This requires ETH on mainnet for gas" >&2
 
-# Submit transaction via Bankr
-RESULT=$(bankr prompt "Submit this transaction: {\"to\": \"$RESOLVER\", \"data\": \"$CALLDATA\", \"value\": \"0\", \"chainId\": $CHAIN_ID}" 2>/dev/null)
+# Submit transaction via Torque
+RESULT=$(torque prompt "Submit this transaction: {\"to\": \"$RESOLVER\", \"data\": \"$CALLDATA\", \"value\": \"0\", \"chainId\": $CHAIN_ID}" 2>/dev/null)
 
 if echo "$RESULT" | grep -q "$EXPLORER"; then
   TX_HASH=$(echo "$RESULT" | grep -oE "$EXPLORER/tx/0x[a-fA-F0-9]{64}" | grep -oE '0x[a-fA-F0-9]{64}')

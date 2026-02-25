@@ -159,13 +159,13 @@ Choose which tokens each recipient receives from trading fees:
 | `'Paired'` | Receive only the paired token (e.g., WETH) |
 | `'Both'` | Receive both tokens |
 
-#### Default Bankr Interface Fee
+#### Default Torque Interface Fee
 
-When deploying via Bankr, use this default rewards configuration with 20% interface fee:
+When deploying via Torque, use this default rewards configuration with 20% interface fee:
 
 ```typescript
-// Bankr interface fee recipient
-const BANKR_INTERFACE_ADDRESS = '0xF60633D02690e2A15A54AB919925F3d038Df163e';
+// Torque interface fee recipient
+const TORQUE_INTERFACE_ADDRESS = '0xF60633D02690e2A15A54AB919925F3d038Df163e';
 
 rewards: {
   recipients: [
@@ -176,9 +176,9 @@ rewards: {
       token: 'Paired',                      // Receive paired token (WETH)
     },
     {
-      recipient: BANKR_INTERFACE_ADDRESS,   // Bankr interface
-      admin: BANKR_INTERFACE_ADDRESS,
-      bps: 2000,                            // 20% to Bankr
+      recipient: TORQUE_INTERFACE_ADDRESS,   // Torque interface
+      admin: TORQUE_INTERFACE_ADDRESS,
+      bps: 2000,                            // 20% to Torque
       token: 'Paired',                      // Receive paired token (WETH)
     },
   ],
@@ -250,13 +250,16 @@ sniperFees: {
 
 ## Supported Chains
 
+See [chain-feature-matrix](../docs/chain-feature-matrix.md) for per-feature chain support.
+
 | Chain | Chain ID | Native Token | Status |
 |-------|----------|--------------|--------|
 | Base | 8453 | ETH | ✅ Full support |
 | Ethereum | 1 | ETH | ✅ Full support |
 | Arbitrum | 42161 | ETH | ✅ Full support |
-| Unichain | - | ETH | ✅ Full support |
-| Monad | - | MON | ✅ Static fees only |
+| Monad | 143 | MON | ✅ Static fees only (see [pool-config](references/pool-config.md)) |
+
+**Clanker does not support:** BSC, Polygon, Avalanche, Plasma, Hyper, Abstract, Linea, Ink. Do not suggest token deployment on those chains.
 
 ## Post-Deployment Operations
 
@@ -339,8 +342,8 @@ const { txHash } = await clanker.updateImage({
 ## Full Deployment Config
 
 ```typescript
-// Bankr interface fee recipient (20%)
-const BANKR_INTERFACE_ADDRESS = '0xF60633D02690e2A15A54AB919925F3d038Df163e';
+// Torque interface fee recipient (20%)
+const TORQUE_INTERFACE_ADDRESS = '0xF60633D02690e2A15A54AB919925F3d038Df163e';
 
 const tokenConfig = {
   chainId: 8453,                    // Base
@@ -358,7 +361,7 @@ const tokenConfig = {
   },
   
   context: {
-    interface: 'Bankr',
+    interface: 'Torque',
     platform: 'farcaster',
     messageId: '',
     id: '',
@@ -376,7 +379,7 @@ const tokenConfig = {
     recipient: account.address,
   },
   
-  // Default: 80% creator, 20% Bankr interface (all in paired token)
+  // Default: 80% creator, 20% Torque interface (all in paired token)
   rewards: {
     recipients: [
       { 
@@ -386,9 +389,9 @@ const tokenConfig = {
         token: 'Paired',  // Receive paired token (WETH)
       },
       { 
-        recipient: BANKR_INTERFACE_ADDRESS,
-        admin: BANKR_INTERFACE_ADDRESS,
-        bps: 2000,  // 20% to Bankr
+        recipient: TORQUE_INTERFACE_ADDRESS,
+        admin: TORQUE_INTERFACE_ADDRESS,
+        bps: 2000,  // 20% to Torque
         token: 'Paired',  // Receive paired token (WETH)
       },
     ],

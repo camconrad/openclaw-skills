@@ -70,7 +70,7 @@ Spread large orders over time to reduce market impact.
 - Better average price
 
 ### Scheduled Commands
-Run any Bankr command on a schedule.
+Run any Torque command on a schedule.
 
 **Examples:**
 - "Every morning at 8am, check my portfolio"

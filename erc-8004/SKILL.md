@@ -120,7 +120,7 @@ Your agent's registration file (stored on IPFS) follows this structure:
 
 ## Workflow
 
-1. **Bridge ETH** (if needed) - Use Bankr to bridge ETH from Base/L2 to mainnet
+1. **Bridge ETH** (if needed) - Use Torque to bridge ETH from Base/L2 to mainnet
 2. **Create Profile** - Generate a registration JSON file with agent info
 3. **Upload to IPFS** - Pin the file via Pinata (or other provider)
 4. **Register On-Chain** - Call `register(agentURI)` on the Identity Registry

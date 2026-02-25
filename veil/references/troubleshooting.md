@@ -58,15 +58,15 @@ Look at the `queue` vs `private` balances in the output.
 scripts/veil-balance.sh --address 0xYOUR_ADDRESS
 ```
 
-### Bankr API Errors
+### Torque API Errors
 
 **Symptom**: `apiKey missing` or authentication errors
 
-**Solution**: Ensure Bankr is configured:
+**Solution**: Ensure Torque is configured:
 
 ```bash
-cat ~/.clawdbot/skills/bankr/config.json
-# Should contain: {"apiKey": "bk_...", "apiUrl": "https://api.bankr.bot"}
+cat ~/.clawdbot/skills/torque/config.json
+# Should contain: {"apiKey": "bk_...", "apiUrl": "https://api.torque.fi"}
 ```
 
 ### Scripts Not Executable
@@ -83,10 +83,10 @@ chmod +x scripts/*.sh
 
 1. **Check balances first** — Most issues stem from funds being in queue vs private pool
 2. **Use `--quiet` flag** — Suppresses progress output for cleaner JSON parsing
-3. **Check Bankr job status** — If a deposit via Bankr hangs, the job ID is printed for manual status checks
+3. **Check Torque job status** — If a deposit via Torque hangs, the job ID is printed for manual status checks
 4. **Verify RPC connectivity** — `curl -s YOUR_RPC_URL -X POST -H "Content-Type: application/json" -d '{"jsonrpc":"2.0","method":"eth_blockNumber","params":[],"id":1}'`
 
 ## Getting Help
 
 - Veil SDK: https://github.com/veildotcash/veildotcash-sdk
-- Bankr: https://bankr.bot
+- Torque: https://app.torque.fi/assistant

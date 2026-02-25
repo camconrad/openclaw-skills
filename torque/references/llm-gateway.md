@@ -1,18 +1,18 @@
 # LLM Gateway Reference
 
-The Bankr LLM Gateway is a unified API for Claude, Gemini, GPT, and other models. It provides multi-provider access, cost tracking, automatic failover, and SDK compatibility through a single endpoint.
+The Torque LLM Gateway is a unified API for Claude, Gemini, GPT, and other models. It provides multi-provider access, cost tracking, automatic failover, and SDK compatibility through a single endpoint.
 
-**Base URL:** `https://llm.bankr.bot`
+**Base URL:** `https://llm.torque.fi`
 
-The gateway accepts both `https://llm.bankr.bot` and `https://llm.bankr.bot/v1` — it normalizes paths automatically. Works with both OpenAI and Anthropic API formats.
+The gateway accepts both `https://llm.torque.fi` and `https://llm.torque.fi/v1` — it normalizes paths automatically. Works with both OpenAI and Anthropic API formats.
 
 ## Authentication
 
 The gateway uses your **LLM key** for authentication. The key resolution order:
 
-1. `BANKR_LLM_KEY` environment variable
-2. `llmKey` in `~/.bankr/config.json`
-3. Falls back to your Bankr API key (`BANKR_API_KEY` / `apiKey`)
+1. `TORQUE_LLM_KEY` environment variable
+2. `llmKey` in `~/.torque/config.json`
+3. Falls back to your Torque API key (`TORQUE_API_KEY` / `apiKey`)
 
 Most users only need a single key for both the agent API and the LLM gateway. Set a separate LLM key only if your keys have different permissions or rate limits.
 
@@ -20,18 +20,18 @@ Most users only need a single key for both the agent API and the LLM gateway. Se
 
 **Via CLI:**
 ```bash
-bankr login --llm-key YOUR_LLM_KEY            # during login
-bankr config set llmKey YOUR_LLM_KEY           # after login
+torque login --llm-key YOUR_LLM_KEY            # during login
+torque config set llmKey YOUR_LLM_KEY           # after login
 ```
 
 **Via environment variable:**
 ```bash
-export BANKR_LLM_KEY=your_llm_key_here
+export TORQUE_LLM_KEY=your_llm_key_here
 ```
 
 **Verify:**
 ```bash
-bankr config get llmKey
+torque config get llmKey
 ```
 
 ## Available Models
@@ -55,7 +55,7 @@ bankr config get llmKey
 
 ```bash
 # Fetch live model list from the gateway
-bankr llm models
+torque llm models
 ```
 
 ## Credits
@@ -63,7 +63,7 @@ bankr llm models
 Check your LLM gateway credit balance:
 
 ```bash
-bankr llm credits
+torque llm credits
 ```
 
 Returns your remaining USD credit balance. When credits are exhausted, gateway requests will fail with HTTP 402.
@@ -72,14 +72,14 @@ Returns your remaining USD credit balance. When credits are exhausted, gateway r
 
 ### OpenClaw
 
-Auto-install the Bankr provider into your OpenClaw config:
+Auto-install the Torque provider into your OpenClaw config:
 
 ```bash
 # Write config to ~/.openclaw/openclaw.json
-bankr llm setup openclaw --install
+torque llm setup openclaw --install
 
 # Preview the config without writing
-bankr llm setup openclaw
+torque llm setup openclaw
 ```
 
 This writes the following provider config (with your key and all available models):
@@ -88,8 +88,8 @@ This writes the following provider config (with your key and all available model
 {
   "models": {
     "providers": {
-      "bankr": {
-        "baseUrl": "https://llm.bankr.bot",
+      "torque": {
+        "baseUrl": "https://llm.torque.fi",
         "apiKey": "your_key_here",
         "api": "openai-completions",
         "models": [
@@ -106,14 +106,14 @@ This writes the following provider config (with your key and all available model
 
 Claude models are automatically configured with `"api": "anthropic-messages"` per-model overrides while all other models use the default `"api": "openai-completions"`.
 
-To use a Bankr model as your default in OpenClaw, add to `openclaw.json`:
+To use a Torque model as your default in OpenClaw, add to `openclaw.json`:
 
 ```json
 {
   "agents": {
     "defaults": {
       "model": {
-        "primary": "bankr/claude-sonnet-4.5"
+        "primary": "torque/claude-sonnet-4.5"
       }
     }
   }
@@ -128,12 +128,12 @@ Two ways to use Claude Code with the gateway:
 
 ```bash
 # Launch Claude Code through the gateway
-bankr llm claude
+torque llm claude
 
 # Pass any Claude Code flags through
-bankr llm claude --model claude-sonnet-4.5
-bankr llm claude --allowedTools Edit,Write,Bash
-bankr llm claude --resume
+torque llm claude --model claude-sonnet-4.5
+torque llm claude --allowedTools Edit,Write,Bash
+torque llm claude --resume
 ```
 
 All arguments after `claude` are forwarded to the `claude` binary. The CLI sets `ANTHROPIC_BASE_URL` and `ANTHROPIC_AUTH_TOKEN` automatically from your config (using `llmKey` if set, otherwise `apiKey`).
@@ -142,12 +142,12 @@ All arguments after `claude` are forwarded to the `claude` binary. The CLI sets 
 
 ```bash
 # Print the env vars to add to your shell profile
-bankr llm setup claude
+torque llm setup claude
 ```
 
 This outputs:
 ```bash
-export ANTHROPIC_BASE_URL="https://llm.bankr.bot"
+export ANTHROPIC_BASE_URL="https://llm.torque.fi"
 export ANTHROPIC_AUTH_TOKEN="your_key_here"
 ```
 
@@ -156,21 +156,21 @@ Add these to `~/.zshrc` or `~/.bashrc` so all Claude Code sessions use the gatew
 ### OpenCode
 
 ```bash
-# Auto-install Bankr provider into ~/.config/opencode/opencode.json
-bankr llm setup opencode --install
+# Auto-install Torque provider into ~/.config/opencode/opencode.json
+torque llm setup opencode --install
 
 # Preview without writing
-bankr llm setup opencode
+torque llm setup opencode
 ```
 
 ### Cursor
 
 ```bash
 # Get step-by-step setup instructions with your API key
-bankr llm setup cursor
+torque llm setup cursor
 ```
 
-The setup adds your key as the OpenAI API Key, sets `https://llm.bankr.bot/v1` as the base URL override, and registers the available model IDs. When the base URL override is enabled, all model requests go through the gateway.
+The setup adds your key as the OpenAI API Key, sets `https://llm.torque.fi/v1` as the base URL override, and registers the available model IDs. When the base URL override is enabled, all model requests go through the gateway.
 
 ## Direct SDK Usage
 
@@ -179,8 +179,8 @@ The gateway is compatible with standard OpenAI and Anthropic SDKs — just overr
 ### curl (OpenAI format)
 
 ```bash
-curl -X POST "https://llm.bankr.bot/v1/chat/completions" \
-  -H "Authorization: Bearer $BANKR_LLM_KEY" \
+curl -X POST "https://llm.torque.fi/v1/chat/completions" \
+  -H "Authorization: Bearer $TORQUE_LLM_KEY" \
   -H "Content-Type: application/json" \
   -d '{
     "model": "claude-sonnet-4.5",
@@ -191,8 +191,8 @@ curl -X POST "https://llm.bankr.bot/v1/chat/completions" \
 ### curl (Anthropic format)
 
 ```bash
-curl -X POST "https://llm.bankr.bot/v1/messages" \
-  -H "x-api-key: $BANKR_LLM_KEY" \
+curl -X POST "https://llm.torque.fi/v1/messages" \
+  -H "x-api-key: $TORQUE_LLM_KEY" \
   -H "anthropic-version: 2023-06-01" \
   -H "Content-Type: application/json" \
   -d '{
@@ -208,8 +208,8 @@ curl -X POST "https://llm.bankr.bot/v1/messages" \
 from openai import OpenAI
 
 client = OpenAI(
-    base_url="https://llm.bankr.bot/v1",
-    api_key="your_bankr_key",
+    base_url="https://llm.torque.fi/v1",
+    api_key="your_torque_key",
 )
 
 response = client.chat.completions.create(
@@ -224,8 +224,8 @@ response = client.chat.completions.create(
 import OpenAI from "openai";
 
 const client = new OpenAI({
-  baseURL: "https://llm.bankr.bot/v1",
-  apiKey: "your_bankr_key",
+  baseURL: "https://llm.torque.fi/v1",
+  apiKey: "your_torque_key",
 });
 
 const response = await client.chat.completions.create({
@@ -240,8 +240,8 @@ const response = await client.chat.completions.create({
 from anthropic import Anthropic
 
 client = Anthropic(
-    base_url="https://llm.bankr.bot",
-    api_key="your_bankr_key",
+    base_url="https://llm.torque.fi",
+    api_key="your_torque_key",
 )
 
 message = client.messages.create(
@@ -254,20 +254,20 @@ message = client.messages.create(
 ## Troubleshooting
 
 ### 401 Unauthorized
-- Verify key is set: `bankr config get llmKey` or `echo $BANKR_LLM_KEY`
+- Verify key is set: `torque config get llmKey` or `echo $TORQUE_LLM_KEY`
 - Check for leading/trailing spaces
 - Ensure the key hasn't expired
 
 ### 402 Payment Required
-- Credits exhausted: `bankr llm credits` shows $0.00
-- Top up credits at [bankr.bot/api](https://bankr.bot/api)
+- Credits exhausted: `torque llm credits` shows $0.00
+- Top up credits at [app.torque.fi/api](https://app.torque.fi/api)
 
 ### Model not found
 - Use exact model IDs (e.g., `claude-sonnet-4.5`, not `claude-3-sonnet`)
-- Check available models: `bankr llm models`
+- Check available models: `torque llm models`
 
 ### Claude Code not found
-- `bankr llm claude` requires Claude Code to be installed separately
+- `torque llm claude` requires Claude Code to be installed separately
 - Install: https://docs.anthropic.com/en/docs/claude-code
 
 ### Slow responses
@@ -276,4 +276,4 @@ message = client.messages.create(
 
 ---
 
-**Documentation**: https://docs.bankr.bot/llm-gateway/overview
+**Documentation**: https://docs.torque.fi/llm-gateway/overview

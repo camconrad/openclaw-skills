@@ -1,6 +1,6 @@
 # Error Handling Reference
 
-Resolve Bankr API errors and common issues.
+Resolve Torque API errors and common issues.
 
 ## Authentication Errors
 
@@ -11,25 +11,25 @@ Resolve Bankr API errors and common issues.
 
 ### Resolution Steps
 
-**1. Install the Bankr CLI**
+**1. Install the Torque CLI**
 ```bash
-bun install -g @bankr/cli
+bun install -g @torque/cli
 ```
 
 **2. Authenticate**
 ```bash
-bankr login
+torque login
 ```
 
-Or if you already have an API key from https://bankr.bot/api:
+Or if you already have an API key from https://app.torque.fi/api:
 ```bash
-bankr config set apiKey bk_your_actual_key_here
+torque config set apiKey bk_your_actual_key_here
 ```
 
 **3. Verify Setup**
 ```bash
-bankr whoami
-bankr prompt "What is my balance?"
+torque whoami
+torque prompt "What is my balance?"
 ```
 
 ### Common API Key Issues
@@ -99,7 +99,7 @@ bankr prompt "What is my balance?"
 | **400** | Bad request | Check prompt format, validate parameters |
 | **401** | Unauthorized | Fix API key (see Authentication section) |
 | **402** | Payment required | Ensure wallet has BNKR on Base for fees |
-| **403** | Forbidden | Agent API access not enabled — enable at https://bankr.bot/api |
+| **403** | Forbidden | Agent API access not enabled — enable at https://app.torque.fi/api |
 | **429** | Rate limited | Wait and retry with exponential backoff |
 | **500** | Server error | Retry after delay |
 | **502** | Bad gateway | Temporary issue, retry after delay |
@@ -117,22 +117,22 @@ bankr prompt "What is my balance?"
 
 **Check Internet Connection**
 ```bash
-ping -c 3 api.bankr.bot
+ping -c 3 api.torque.fi
 ```
 
 **Verify API Endpoint**
 ```bash
-curl -I https://api.bankr.bot
+curl -I https://api.torque.fi
 ```
 
 **Check DNS Resolution**
 ```bash
-nslookup api.bankr.bot
+nslookup api.torque.fi
 ```
 
 **Test with curl**
 ```bash
-curl -sf https://api.bankr.bot || echo "Connection failed"
+curl -sf https://api.torque.fi || echo "Connection failed"
 ```
 
 ## Balance/Funding Issues
@@ -145,11 +145,7 @@ curl -sf https://api.bankr.bot || echo "Connection failed"
 
 **Fix**:
 - Add native token to wallet
-- Amounts needed:
-  - Ethereum: 0.01-0.05 ETH
-  - Base: 0.001-0.01 ETH
-  - Polygon: 1-5 MATIC
-  - Solana: 0.01-0.1 SOL
+- Amounts needed (examples): Ethereum 0.01–0.05 ETH, Base 0.001–0.01 ETH, Polygon 1–5 MATIC. See [chains-config](../../docs/chains-config.md) for all supported chains.
 
 ### Insufficient Token Balance
 **Symptoms**:
@@ -165,39 +161,39 @@ curl -sf https://api.bankr.bot || echo "Connection failed"
 
 ### CLI Not Installed
 ```bash
-# Install the Bankr CLI
-bun install -g @bankr/cli
+# Install the Torque CLI
+bun install -g @torque/cli
 
 # Or with npm
-npm install -g @bankr/cli
+npm install -g @torque/cli
 
 # Verify installation
-which bankr
+which torque
 ```
 
 ### Not Authenticated
 ```bash
 # Authenticate (opens browser for email/OTP flow)
-bankr login
+torque login
 
 # Or set API key directly
-bankr config set apiKey bk_your_key_here
+torque config set apiKey bk_your_key_here
 
 # Set separate LLM key (optional, falls back to API key)
-bankr config set llmKey your_llm_key_here
+torque config set llmKey your_llm_key_here
 
 # Verify
-bankr whoami
+torque whoami
 ```
 
-Config is stored at `~/.bankr/config.json`. View current values with `bankr config get`.
+Config is stored at `~/.torque/config.json`. View current values with `torque config get`.
 
 ### REST API Authentication
 If using the API directly without the CLI, test your key with:
 ```bash
-curl -s "https://api.bankr.bot/_health" -H "X-API-Key: $BANKR_API_KEY"
+curl -s "https://api.torque.fi/_health" -H "X-API-Key: $TORQUE_API_KEY"
 ```
-Set `BANKR_API_KEY` (and optionally `BANKR_LLM_KEY` for the LLM gateway) as environment variables.
+Set `TORQUE_API_KEY` (and optionally `TORQUE_LLM_KEY` for the LLM gateway) as environment variables.
 
 ## User-Friendly Error Messages
 
@@ -212,7 +208,7 @@ To fix this:
 2. [Step 2]
 3. [Step 3]
 
-Need help? Visit https://bankr.bot/api
+Need help? Visit https://app.torque.fi/api
 ```
 
 ### Examples
@@ -252,7 +248,7 @@ Before reporting an issue, check:
 - [ ] API key is set and correct
 - [ ] Config file exists and has valid JSON
 - [ ] Internet connection is working
-- [ ] api.bankr.bot is reachable
+- [ ] api.torque.fi is reachable
 - [ ] Wallet has sufficient balance (tokens + gas)
 - [ ] Token/market exists on specified chain
 - [ ] Command syntax is correct
@@ -264,10 +260,10 @@ Before reporting an issue, check:
 ### Check Status
 ```bash
 # Verify authentication
-bankr whoami
+torque whoami
 
 # Test with a simple query
-bankr prompt "What is my balance?"
+torque prompt "What is my balance?"
 ```
 
 ### Gather Information
@@ -281,9 +277,9 @@ When reporting issues, include:
 
 ### Resources
 - **Agent API Reference**: https://www.notion.so/Agent-API-2e18e0f9661f80cb83ccfc046f8872e3
-- **API Key Management**: https://bankr.bot/api
-- **Twitter**: @bankr_bot
-- **Telegram**: @bankr_ai_bot
+- **API Key Management**: https://app.torque.fi/api
+- **Twitter**: @torque_bot
+- **Telegram**: @torque_ai_bot
 
 ## Prevention
 

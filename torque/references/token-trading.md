@@ -4,13 +4,7 @@ Execute token trades and swaps across multiple blockchains.
 
 ## Supported Chains
 
-| Chain | Native Token | Characteristics |
-|-------|--------------|-----------------|
-| Base | ETH | Low fees, ideal for memecoins |
-| Polygon | MATIC | Fast, cheap transactions |
-| Ethereum | ETH | Highest liquidity, expensive gas |
-| Unichain | ETH | Newer L2 option |
-| Solana | SOL | High speed, minimal fees |
+See [docs/chains-config.md](../../docs/chains-config.md). Supported EVM chains: Ethereum (1), BSC (56), Polygon (137), Monad (143), Arbitrum (42161), Avalanche (43114), Base (8453), Plasma (9745), Hyper (999), Abstract (2741), Linea (59144), Ink (57073).
 
 ## Amount Formats
 
@@ -30,7 +24,7 @@ Execute token trades and swaps across multiple blockchains.
 
 **Cross-chain swaps:**
 - "Bridge 0.5 ETH from Ethereum to Base"
-- "Move 100 USDC from Polygon to Solana"
+- "Move 100 USDC from Polygon to Base"
 
 **ETH/WETH conversion:**
 - "Convert 0.1 ETH to WETH"
@@ -38,7 +32,7 @@ Execute token trades and swaps across multiple blockchains.
 
 ## Chain Selection
 
-- If no chain specified, Bankr selects the most appropriate chain
+- If no chain specified, Torque selects the most appropriate chain
 - Base is preferred for most operations due to low fees
 - Cross-chain routes are automatically optimized
 - Include chain name in prompt to specify: "Buy ETH on Polygon"
@@ -46,7 +40,7 @@ Execute token trades and swaps across multiple blockchains.
 ## Slippage
 
 - Default slippage tolerance is applied automatically
-- For volatile tokens, Bankr adjusts slippage as needed
+- For volatile tokens, Torque adjusts slippage as needed
 - If slippage is exceeded, the transaction fails safely
 - You can specify: "with 1% slippage"
 

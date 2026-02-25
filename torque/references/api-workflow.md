@@ -1,17 +1,17 @@
-# Bankr API Workflow Reference
+# Torque API Workflow Reference
 
-Understanding the asynchronous job pattern for Bankr API operations.
+Understanding the asynchronous job pattern for Torque API operations.
 
 **Source**: [Agent API Reference](https://www.notion.so/Agent-API-2e18e0f9661f80cb83ccfc046f8872e3)
 
-## Using the Bankr CLI
+## Using the Torque CLI
 
 The CLI handles submit-poll-complete automatically. For installation and login, see the main [SKILL.md](../SKILL.md).
 
 ```bash
-bankr prompt "What is my ETH balance?"   # submit + poll + display
-bankr status <jobId>                      # check a specific job
-bankr cancel <jobId>                      # cancel a running job
+torque prompt "What is my ETH balance?"   # submit + poll + display
+torque status <jobId>                      # check a specific job
+torque cancel <jobId>                      # cancel a running job
 ```
 
 ## Using the REST API Directly
@@ -33,11 +33,11 @@ All operations follow this pattern:
 ### POST /agent/prompt
 Submit a natural language prompt to start a job.
 
-**CLI equivalent:** `bankr prompt "What is my ETH balance?"`
+**CLI equivalent:** `torque prompt "What is my ETH balance?"`
 
 **Request:**
 ```bash
-curl -X POST "https://api.bankr.bot/agent/prompt" \
+curl -X POST "https://api.torque.fi/agent/prompt" \
   -H "X-API-Key: YOUR_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{"prompt": "What is my ETH balance?"}'
@@ -45,7 +45,7 @@ curl -X POST "https://api.bankr.bot/agent/prompt" \
 
 **Continue a conversation:**
 ```bash
-curl -X POST "https://api.bankr.bot/agent/prompt" \
+curl -X POST "https://api.torque.fi/agent/prompt" \
   -H "X-API-Key: YOUR_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{"prompt": "And what about SOL?", "threadId": "thr_ABC123"}'
@@ -77,11 +77,11 @@ curl -X POST "https://api.bankr.bot/agent/prompt" \
 ### GET /agent/job/{jobId}
 Check job status and results.
 
-**CLI equivalent:** `bankr status job_abc123`
+**CLI equivalent:** `torque status job_abc123`
 
 **Request:**
 ```bash
-curl -X GET "https://api.bankr.bot/agent/job/job_abc123" \
+curl -X GET "https://api.torque.fi/agent/job/job_abc123" \
   -H "X-API-Key: YOUR_API_KEY"
 ```
 
@@ -116,11 +116,11 @@ curl -X GET "https://api.bankr.bot/agent/job/job_abc123" \
 ### POST /agent/job/{jobId}/cancel
 Cancel a pending or processing job. Cancel requests are idempotent — cancelling an already-cancelled job returns success.
 
-**CLI equivalent:** `bankr cancel job_abc123`
+**CLI equivalent:** `torque cancel job_abc123`
 
 **Request:**
 ```bash
-curl -X POST "https://api.bankr.bot/agent/job/job_abc123/cancel" \
+curl -X POST "https://api.torque.fi/agent/job/job_abc123/cancel" \
   -H "X-API-Key: YOUR_API_KEY" \
   -H "Content-Type: application/json"
 ```
@@ -211,7 +211,7 @@ MAX_ATTEMPTS=150  # 5 minutes
 
 for i in $(seq 1 $MAX_ATTEMPTS); do
     sleep 2
-    STATUS=$(curl -s "https://api.bankr.bot/agent/job/$JOB_ID" \
+    STATUS=$(curl -s "https://api.torque.fi/agent/job/$JOB_ID" \
         -H "X-API-Key: $API_KEY" | jq -r '.status')
 
     case "$STATUS" in
@@ -287,7 +287,7 @@ done
 }
 ```
 
-**Resolution**: Check API key, ensure "Agent API" access is enabled at https://bankr.bot/api
+**Resolution**: Check API key, ensure "Agent API" access is enabled at https://app.torque.fi/api
 
 ### Forbidden (403)
 ```json
@@ -297,7 +297,7 @@ done
 }
 ```
 
-**Resolution**: Visit https://bankr.bot/api and enable Agent API access on your key
+**Resolution**: Visit https://app.torque.fi/api and enable Agent API access on your key
 
 ### Rate Limiting (429)
 ```json
@@ -385,7 +385,7 @@ done
 - Use environment variables or config.json
 - Rotate periodically
 - Monitor usage
-- Revoke immediately if leaked at https://bankr.bot/api
+- Revoke immediately if leaked at https://app.torque.fi/api
 
 ### Validation
 - Validate user input
@@ -401,4 +401,4 @@ done
 
 ---
 
-**Remember**: The asynchronous pattern allows Bankr to handle complex operations that may take time, while keeping you informed of progress.
+**Remember**: The asynchronous pattern allows Torque to handle complex operations that may take time, while keeping you informed of progress.

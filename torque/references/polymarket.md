@@ -62,7 +62,7 @@ Polymarket is a decentralized prediction market where users can search markets, 
 ## Auto-Bridging
 
 If you don't have USDC on Polygon:
-- Bankr automatically bridges from another chain
+- Torque automatically bridges from another chain
 - Uses your available stablecoins (USDC/USDT)
 - Optimizes for lowest fees
 - Typically completes in minutes

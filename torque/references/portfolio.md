@@ -4,7 +4,7 @@ Query token balances and portfolio across all supported chains.
 
 ## Supported Chains
 
-All chains: Base, Polygon, Ethereum, Unichain, Solana
+All supported EVM chains (see [chains-config](../../docs/chains-config.md)): Ethereum, BSC, Polygon, Monad, Arbitrum, Avalanche, Base, Plasma, Hyper, Abstract, Linea, Ink
 
 ## Prompt Examples
 
@@ -19,7 +19,7 @@ All chains: Base, Polygon, Ethereum, Unichain, Solana
 - "Show my Base balance"
 - "What tokens do I have on Polygon?"
 - "Ethereum portfolio"
-- "Solana holdings"
+- "Holdings on Base"
 
 **Token-specific:**
 - "How much ETH do I have?"

@@ -1,6 +1,6 @@
 # Market Research Reference
 
-Research tokens and analyze market data using Bankr's AI-powered analysis.
+Research tokens and analyze market data using Torque's AI-powered analysis.
 
 ## Capabilities
 
@@ -88,18 +88,13 @@ Research tokens and analyze market data using Bankr's AI-powered analysis.
 
 ## Supported Chains
 
-Token research works across:
-- Base
-- Polygon
-- Ethereum
-- Solana
-- Unichain
+Token research works across all supported EVM chains (see [chains-config](../../docs/chains-config.md)): Ethereum, BSC, Polygon, Monad, Arbitrum, Avalanche, Base, Plasma, Hyper, Abstract, Linea, Ink.
 
 ## Token Search
 
 Find tokens by name, symbol, or address:
 - "Search for BNKR token"
-- "Find tokens called Bankr"
+- "Find tokens called Torque"
 - "What is the contract for PEPE on Base?"
 - "Token address for USDC on Polygon"
 

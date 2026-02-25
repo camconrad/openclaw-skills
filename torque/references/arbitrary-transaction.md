@@ -4,12 +4,22 @@ Submit raw EVM transactions with explicit calldata to any supported chain.
 
 ## Supported Chains
 
-| Chain | Chain ID |
-|-------|----------|
-| Ethereum | 1 |
-| Polygon | 137 |
-| Base | 8453 |
-| Unichain | 130 |
+Single source of truth: [docs/chains-config.md](../../docs/chains-config.md).
+
+| Chain     | Chain ID |
+|-----------|----------|
+| Ethereum  | 1        |
+| BSC       | 56       |
+| Polygon   | 137      |
+| Monad     | 143      |
+| Arbitrum  | 42161    |
+| Avalanche | 43114    |
+| Base      | 8453     |
+| Plasma    | 9745     |
+| Hyper     | 999      |
+| Abstract  | 2741     |
+| Linea     | 59144    |
+| Ink       | 57073    |
 
 ## JSON Format
 
@@ -27,7 +37,7 @@ Submit raw EVM transactions with explicit calldata to any supported chain.
 | `to` | string | Yes | Target contract address (0x + 40 hex chars) |
 | `data` | string | Yes | Calldata to execute (0x + hex string, or "0x" for empty) |
 | `value` | string | Yes | Amount in wei (e.g., "0", "1000000000000000000" for 1 ETH) |
-| `chainId` | number | Yes | Target chain ID (1, 137, 8453, or 130) |
+| `chainId` | number | Yes | Target chain ID (see [chains-config](../../docs/chains-config.md): 1, 56, 137, 143, 999, 2741, 42161, 43114, 8453, 9745, 59144, 57073) |
 
 ## Validation Rules
 
@@ -88,7 +98,7 @@ Submit this ERC-20 transfer:
 
 | Issue | Resolution |
 |-------|------------|
-| Unsupported chain | Use chainId 1, 137, 8453, or 130 |
+| Unsupported chain | Use a supported chainId (see [chains-config](../../docs/chains-config.md)) |
 | Invalid address | Ensure 0x + 40 hex chars |
 | Invalid calldata | Ensure proper hex encoding with 0x prefix |
 | Transaction reverted | Check calldata encoding and contract state |

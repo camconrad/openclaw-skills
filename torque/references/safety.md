@@ -1,19 +1,19 @@
 # Safety & Access Control Reference
 
-Comprehensive safety guidance for building agents and integrations with the Bankr API and CLI. Covers API key types, access controls, wallet separation, rate limits, and operational best practices.
+Comprehensive safety guidance for building agents and integrations with the Torque API and CLI. Covers API key types, access controls, wallet separation, rate limits, and operational best practices.
 
 ## API Key Types & Separation
 
-Bankr uses a single key format (`bk_...`) with **capability flags** that control what each key can access. You can optionally configure a separate key for the LLM Gateway.
+Torque uses a single key format (`bk_...`) with **capability flags** that control what each key can access. You can optionally configure a separate key for the LLM Gateway.
 
 ### Capability Flags
 
-Each API key has independent toggles managed at [bankr.bot/api](https://bankr.bot/api):
+Each API key has independent toggles managed at [app.torque.fi/api](https://app.torque.fi/api):
 
 | Flag | Controls Access To | Default |
 |------|-------------------|---------|
 | `agentApiEnabled` | `/agent/*` endpoints (prompt, sign, submit, job status) | false |
-| `llmGatewayEnabled` | LLM Gateway at `llm.bankr.bot` (chat completions, model access) | false |
+| `llmGatewayEnabled` | LLM Gateway at `llm.torque.fi` (chat completions, model access) | false |
 | `externalOrdersEnabled` | External order submission endpoints | false |
 | `readOnly` | When true, restricts agent sessions to read-only tools | false |
 
@@ -25,9 +25,9 @@ For most users, **one key works for both** the Agent API and LLM Gateway. Howeve
 
 | Config | Agent API Key | LLM Gateway Key |
 |--------|--------------|-----------------|
-| Environment variable | `BANKR_API_KEY` | `BANKR_LLM_KEY` (falls back to `BANKR_API_KEY`) |
+| Environment variable | `TORQUE_API_KEY` | `TORQUE_LLM_KEY` (falls back to `TORQUE_API_KEY`) |
 | CLI config key | `apiKey` | `llmKey` (falls back to `apiKey`) |
-| Used by | `bankr prompt`, `/agent/*` endpoints | `bankr llm claude`, `llm.bankr.bot` |
+| Used by | `torque prompt`, `/agent/*` endpoints | `torque llm claude`, `llm.torque.fi` |
 
 **When to use separate keys:**
 - Your agent API key is read-only but your LLM key needs no such restriction (LLM calls are inherently read-only)
@@ -36,15 +36,15 @@ For most users, **one key works for both** the Agent API and LLM Gateway. Howeve
 
 **Setting a separate LLM key:**
 ```bash
-bankr login --api-key bk_AGENT_KEY --llm-key bk_LLM_KEY   # during login
-bankr config set llmKey bk_LLM_KEY                         # after login
+torque login --api-key bk_AGENT_KEY --llm-key bk_LLM_KEY   # during login
+torque config set llmKey bk_LLM_KEY                         # after login
 ```
 
 For full LLM Gateway setup details, see [llm-gateway.md](llm-gateway.md).
 
 ## API Key Access Control
 
-Bankr API keys support granular access control configured at [bankr.bot/api](https://bankr.bot/api). Two key security features: **read-only mode** and **IP whitelisting**.
+Torque API keys support granular access control configured at [app.torque.fi/api](https://app.torque.fi/api). Two key security features: **read-only mode** and **IP whitelisting**.
 
 ### Read-Only API Keys
 
@@ -66,7 +66,7 @@ For `/agent/sign`:
 ```json
 {
   "error": "Read-only API key",
-  "message": "This API key has read-only access and cannot sign messages or transactions. Update your API key permissions at https://bankr.bot/api"
+  "message": "This API key has read-only access and cannot sign messages or transactions. Update your API key permissions at https://app.torque.fi/api"
 }
 ```
 
@@ -74,7 +74,7 @@ For `/agent/submit`:
 ```json
 {
   "error": "Read-only API key",
-  "message": "This API key has read-only access and cannot submit transactions. Update your API key permissions at https://bankr.bot/api"
+  "message": "This API key has read-only access and cannot submit transactions. Update your API key permissions at https://app.torque.fi/api"
 }
 ```
 
@@ -113,7 +113,7 @@ API keys support an `allowedIps` whitelist. When configured, requests from non-w
 
 ### Configuring Access Control
 
-Manage API key settings at [bankr.bot/api](https://bankr.bot/api):
+Manage API key settings at [app.torque.fi/api](https://app.torque.fi/api):
 
 | Field | Type | Description |
 |-------|------|-------------|
@@ -124,26 +124,26 @@ Manage API key settings at [bankr.bot/api](https://bankr.bot/api):
 
 ## CLI Security
 
-The Bankr CLI (`@bankr/cli`) stores credentials locally and provides its own safety considerations alongside the REST API.
+The Torque CLI (`@torque/cli`) stores credentials locally and provides its own safety considerations alongside the REST API.
 
 ### Credential Storage
 
-The CLI stores keys in `~/.bankr/config.json`:
+The CLI stores keys in `~/.torque/config.json`:
 
 ```json
 {
   "apiKey": "bk_...",
   "llmKey": "bk_...",
-  "apiUrl": "https://api.bankr.bot",
-  "llmUrl": "https://llm.bankr.bot"
+  "apiUrl": "https://api.torque.fi",
+  "llmUrl": "https://llm.torque.fi"
 }
 ```
 
 **Safety rules for CLI credentials:**
-- Add `~/.bankr/` to your global `.gitignore` — never commit this directory
-- On shared machines, restrict file permissions: `chmod 600 ~/.bankr/config.json`
-- Use `bankr logout` to clear stored credentials when done on a shared machine
-- For CI/CD, prefer environment variables (`BANKR_API_KEY`, `BANKR_LLM_KEY`) over config files
+- Add `~/.torque/` to your global `.gitignore` — never commit this directory
+- On shared machines, restrict file permissions: `chmod 600 ~/.torque/config.json`
+- Use `torque logout` to clear stored credentials when done on a shared machine
+- For CI/CD, prefer environment variables (`TORQUE_API_KEY`, `TORQUE_LLM_KEY`) over config files
 
 ### Non-Interactive Login
 
@@ -151,13 +151,13 @@ When running the CLI in automated scripts or AI agent environments where interac
 
 ```bash
 # Direct key login — no prompts
-bankr login --api-key bk_YOUR_KEY
+torque login --api-key bk_YOUR_KEY
 
 # With separate LLM key
-bankr login --api-key bk_AGENT_KEY --llm-key bk_LLM_KEY
+torque login --api-key bk_AGENT_KEY --llm-key bk_LLM_KEY
 
 # Verify it worked
-bankr whoami
+torque whoami
 ```
 
 ### CLI vs REST API Access Controls
@@ -166,15 +166,15 @@ Access controls (read-only, IP whitelist) apply identically whether you use the 
 
 ```bash
 # These two are equivalent — same access controls apply
-bankr prompt "What is my balance?"
-curl -X POST "https://api.bankr.bot/agent/prompt" \
+torque prompt "What is my balance?"
+curl -X POST "https://api.torque.fi/agent/prompt" \
   -H "X-API-Key: bk_YOUR_KEY" \
   -d '{"prompt": "What is my balance?"}'
 ```
 
 ## Dedicated Agent Wallet
 
-When building autonomous agents that execute transactions, use a **separate Bankr account** as the agent's wallet rather than your personal account. This limits blast radius — if an agent key is compromised or the agent misbehaves, only the dedicated wallet's funds are at risk.
+When building autonomous agents that execute transactions, use a **separate Torque account** as the agent's wallet rather than your personal account. This limits blast radius — if an agent key is compromised or the agent misbehaves, only the dedicated wallet's funds are at risk.
 
 ### Why Separate Wallets
 
@@ -185,7 +185,7 @@ When building autonomous agents that execute transactions, use a **separate Bank
 
 ### Setup Steps
 
-1. **Create a new Bankr account** — Sign up at [bankr.bot/api](https://bankr.bot/api) with a different email. This provisions fresh EVM and Solana wallets automatically.
+1. **Create a new Torque account** — Sign up at [app.torque.fi/api](https://app.torque.fi/api) with a different email. This provisions fresh EVM wallets for all supported chains (see [chains-config](../../docs/chains-config.md)) automatically.
 2. **Generate an API key** — Enable **Agent API** access for the key
 3. **Configure access controls** — Set `readOnly`, `allowedIps`, or both as appropriate for your use case
 4. **Fund with limited amounts** — Transfer only what the agent needs for its operations
@@ -194,12 +194,22 @@ When building autonomous agents that execute transactions, use a **separate Bank
 
 Fund the agent wallet with enough for gas and intended operations, not more:
 
-| Chain | Gas Buffer | Trading Capital |
-|-------|-----------|-----------------|
-| Base | 0.01 - 0.05 ETH | As needed for trades |
-| Polygon | 5 - 10 MATIC | As needed for trades |
-| Ethereum | 0.05 - 0.1 ETH | As needed for trades |
-| Solana | 0.1 - 0.5 SOL | As needed for trades |
+| Chain     | Chain ID | Gas Buffer (example) |
+|-----------|----------|------------------------|
+| Ethereum  | 1        | 0.01–0.05 ETH          |
+| BSC       | 56       | As needed              |
+| Polygon   | 137      | 1–5 MATIC              |
+| Monad     | 143      | As needed              |
+| Arbitrum  | 42161    | 0.01–0.05 ETH          |
+| Avalanche | 43114    | As needed              |
+| Base      | 8453     | 0.001–0.01 ETH         |
+| Plasma    | 9745     | As needed              |
+| Hyper     | 999      | As needed              |
+| Abstract  | 2741     | As needed              |
+| Linea     | 59144    | As needed              |
+| Ink       | 57073    | As needed              |
+
+See [chains-config](../../docs/chains-config.md) for full list.
 
 Replenish periodically rather than pre-loading large amounts.
 
@@ -223,14 +233,14 @@ The `/agent/prompt` endpoint enforces daily message limits per account:
 | Tier | Daily Limit |
 |------|-------------|
 | Standard | 100 messages/day |
-| Bankr Club | 1,000 messages/day |
+| Torque Club | 1,000 messages/day |
 | Custom | Set per API key |
 
 **429 response when limit exceeded:**
 ```json
 {
   "error": "Daily limit exceeded",
-  "message": "You have reached your daily API limit of 100 messages. Upgrade to Bankr Club for 1000 messages/day. Resets at 2025-01-15T12:00:00.000Z",
+  "message": "You have reached your daily API limit of 100 messages. Upgrade to Torque Club for 1000 messages/day. Resets at 2025-01-15T12:00:00.000Z",
   "resetAt": 1736942400000,
   "limit": 100,
   "used": 100
@@ -264,13 +274,13 @@ Blockchain transactions are **irreversible** once confirmed. Key safety rules:
 
 ### Storage
 
-- **Environment variables** — Store API keys in `BANKR_API_KEY` and LLM keys in `BANKR_LLM_KEY`, never in source code
-- **CLI config** — The CLI stores keys in `~/.bankr/config.json`. Ensure this directory is in `.gitignore` and has restricted permissions
-- **Never commit secrets** — Add `~/.bankr/`, `.env`, and credential files to `.gitignore`. Use `bankr logout` to clear CLI credentials on shared machines
+- **Environment variables** — Store API keys in `TORQUE_API_KEY` and LLM keys in `TORQUE_LLM_KEY`, never in source code
+- **CLI config** — The CLI stores keys in `~/.torque/config.json`. Ensure this directory is in `.gitignore` and has restricted permissions
+- **Never commit secrets** — Add `~/.torque/`, `.env`, and credential files to `.gitignore`. Use `torque logout` to clear CLI credentials on shared machines
 
 ### Rotation & Revocation
 
-- **Rotate periodically** — Generate new keys and deactivate old ones at [bankr.bot/api](https://bankr.bot/api). After rotating, update both env vars and CLI config (`bankr login --api-key NEW_KEY`)
+- **Rotate periodically** — Generate new keys and deactivate old ones at [app.torque.fi/api](https://app.torque.fi/api). After rotating, update both env vars and CLI config (`torque login --api-key NEW_KEY`)
 - **Revoke immediately** — If any key (API or LLM) is leaked, deactivate it immediately at the dashboard
 - **One key per purpose** — Use separate keys for different agents, environments, and services (Agent API vs LLM Gateway) so you can revoke individually without disrupting unrelated systems
 
@@ -278,7 +288,7 @@ Blockchain transactions are **irreversible** once confirmed. Key safety rules:
 
 - Prefer environment variables for server-side agents and CI/CD; use CLI config for local development
 - If you use separate API and LLM keys, rotate them independently
-- When revoking a compromised key, check both `BANKR_API_KEY` and `BANKR_LLM_KEY` — if the same key was used for both, both need updating
+- When revoking a compromised key, check both `TORQUE_API_KEY` and `TORQUE_LLM_KEY` — if the same key was used for both, both need updating
 
 For the full API key setup and authentication workflow, see [api-workflow.md](api-workflow.md).
 
@@ -305,8 +315,8 @@ Before deploying an agent or integration:
 - [ ] Fund the agent wallet with **limited amounts** appropriate to its purpose
 - [ ] Set API key to **read-only** if the agent only needs to query data
 - [ ] Configure **IP whitelisting** for server-side agents with known IPs
-- [ ] Store keys in **environment variables** (`BANKR_API_KEY`, `BANKR_LLM_KEY`), never in source code or version control
-- [ ] If using the CLI, ensure `~/.bankr/` is in `.gitignore` and has restricted file permissions
+- [ ] Store keys in **environment variables** (`TORQUE_API_KEY`, `TORQUE_LLM_KEY`), never in source code or version control
+- [ ] If using the CLI, ensure `~/.torque/` is in `.gitignore` and has restricted file permissions
 - [ ] Use **separate keys** for Agent API vs LLM Gateway if they need independent access controls or revocation
 - [ ] **Test with small amounts** on low-cost chains (Base, Polygon) before production use
 - [ ] Verify **recipient addresses** in any transfer logic before execution

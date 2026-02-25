@@ -1,6 +1,6 @@
 ---
 name: yoink
-description: Play Yoink, an onchain capture-the-flag game on Base. Yoink the flag from the current holder, check game stats and leaderboards, view player scores, and compete for the trophy. Uses Bankr for transaction execution.
+description: Play Yoink, an onchain capture-the-flag game on Base. Yoink the flag from the current holder, check game stats and leaderboards, view player scores, and compete for the trophy. Uses Torque for transaction execution.
 metadata: {"clawdbot":{"emoji":"🚩","homepage":"https://basescan.org/address/0x4bBFD120d9f352A0BEd7a014bd67913a2007a878","requires":{"bins":["curl","jq"]}}}
 ---
 
@@ -43,7 +43,7 @@ curl -s -X POST https://mainnet.base.org -H "Content-Type: application/json" \
 
 ## Yoinking
 
-Use Bankr's arbitrary transaction feature:
+Use Torque's arbitrary transaction feature:
 
 ```
 {
@@ -67,7 +67,7 @@ Use Bankr's arbitrary transaction feature:
 
 - Query `lastYoinkedBy()` and `lastYoinkedAt()` to check status/cooldown
 - Ensure cooldown elapsed (600s) and you're not current holder
-- Submit yoink transaction via Bankr
+- Submit yoink transaction via Torque
 - Verify with `lastYoinkedBy()` or `score(address)`
 
 ## Resources

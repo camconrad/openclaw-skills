@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Build a Bankr-compatible unsigned deposit tx JSON (no signing).
+# Build a Torque-compatible unsigned deposit tx JSON (no signing).
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"

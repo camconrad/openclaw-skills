@@ -9,9 +9,9 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ENS_NAME="${1:?Usage: set-primary.sh <ens-name> [chain]}"
 CHAIN="${2:-base}"
 
-# Require Bankr CLI
-if ! command -v bankr >/dev/null 2>&1; then
-  echo "Bankr CLI not found. Install with: bun install -g @bankr/cli" >&2
+# Require Torque CLI
+if ! command -v torque >/dev/null 2>&1; then
+  echo "Torque CLI not found. Install with: bun install -g @torque/cli" >&2
   exit 1
 fi
 
@@ -124,7 +124,7 @@ console.log(selector + offset + len + data);
 echo "Calldata: $CALLDATA" >&2
 echo "Submitting transaction..." >&2
 
-RESULT=$(bankr prompt "Submit this transaction: {\"to\": \"$REVERSE_REGISTRAR\", \"data\": \"$CALLDATA\", \"value\": \"0\", \"chainId\": $CHAIN_ID}" 2>/dev/null)
+RESULT=$(torque prompt "Submit this transaction: {\"to\": \"$REVERSE_REGISTRAR\", \"data\": \"$CALLDATA\", \"value\": \"0\", \"chainId\": $CHAIN_ID}" 2>/dev/null)
 
 if echo "$RESULT" | grep -q "$EXPLORER"; then
   TX_HASH=$(echo "$RESULT" | grep -oE "$EXPLORER/tx/0x[a-fA-F0-9]{64}" | grep -oE '0x[a-fA-F0-9]{64}')

@@ -1,29 +1,29 @@
 ---
-name: bankr
-description: AI-powered crypto trading agent and LLM gateway via natural language. Use when the user wants to trade crypto, check portfolio balances, view token prices, transfer crypto, manage NFTs, use leverage, bet on Polymarket, deploy tokens, set up automated trading, sign and submit raw transactions, or access LLM models through the Bankr LLM gateway funded by your Bankr wallet. Supports Base, Ethereum, Polygon, Solana, and Unichain.
+name: torque
+description: AI-powered crypto trading agent and LLM gateway via natural language. Use when the user wants to trade crypto, check portfolio balances, view token prices, transfer crypto, manage NFTs, use leverage, bet on Polymarket, deploy tokens, set up automated trading, sign and submit raw transactions, or access LLM models through the Torque LLM gateway funded by your Torque wallet. Supports Ethereum, Arbitrum, Base, BSC, Avalanche, Monad, Polygon, Plasma, Linea, Hyper, Abstract, and Ink (see [chains-config](../docs/chains-config.md)).
 metadata:
   {
     "clawdbot":
       {
         "emoji": "📺",
-        "homepage": "https://bankr.bot",
-        "requires": { "bins": ["bankr"] },
+        "homepage": "https://torque.fi",
+        "requires": { "bins": ["torque"] },
       },
   }
 ---
 
-# Bankr
+# Torque
 
 Execute crypto trading and DeFi operations using natural language. Two integration options:
 
-1. **Bankr CLI** (recommended) — Install `@bankr/cli` for a batteries-included terminal experience
-2. **REST API** — Call `https://api.bankr.bot` directly from any language or tool
+1. **Torque CLI** (recommended) — Install `@torque/cli` for a batteries-included terminal experience
+2. **REST API** — Call `https://api.torque.fi` directly from any language or tool
 
 Both use the same API key and the same async job workflow under the hood.
 
 ## Getting an API Key
 
-Before using either option, you need a Bankr API key. Two ways to get one:
+Before using either option, you need a Torque API key. Two ways to get one:
 
 **Option A: Headless email login (recommended for agents)**
 
@@ -31,34 +31,34 @@ Two-step flow — send OTP, then verify and complete setup. See "First-Time Setu
 
 ```bash
 # Step 1 — send OTP to email
-bankr login email user@example.com
+torque login email user@example.com
 
 # Step 2 — verify OTP and generate API key (options based on user preferences)
-bankr login email user@example.com --code 123456 --accept-terms --key-name "My Agent" --read-write
+torque login email user@example.com --code 123456 --accept-terms --key-name "My Agent" --read-write
 ```
 
 This creates a wallet, accepts terms, and generates an API key — no browser needed. Before running step 2, ask the user whether they need read-only or read-write access, LLM gateway, and their preferred key name.
 
-**Option B: Bankr Terminal**
+**Option B: Torque Assistant**
 
-1. Visit [bankr.bot/api](https://bankr.bot/api)
+1. Visit [app.torque.fi/assistant](https://app.torque.fi/assistant)
 2. **Sign up / Sign in** — Enter your email and the one-time passcode (OTP) sent to it
 3. **Generate an API key** — Create a key with **Agent API** access enabled (the key starts with `bk_...`)
 
-Both options automatically provision **EVM wallets** (Base, Ethereum, Polygon, Unichain) and a **Solana wallet** — no manual wallet setup needed.
+Both options automatically provision **EVM wallets** for all supported chains (see [chains-config](../docs/chains-config.md)) — no manual wallet setup needed.
 
-## Option 1: Bankr CLI (Recommended)
+## Option 1: Torque CLI (Recommended)
 
 ### Install
 
 ```bash
-bun install -g @bankr/cli
+bun install -g @torque/cli
 ```
 
 Or with npm:
 
 ```bash
-npm install -g @bankr/cli
+npm install -g @torque/cli
 ```
 
 ### First-Time Setup
@@ -70,28 +70,28 @@ When the user asks to log in with an email, walk them through this flow:
 **Step 1 — Send verification code**
 
 ```bash
-bankr login email <user-email>
+torque login email <user-email>
 ```
 
 **Step 2 — Ask the user for the OTP code** they received via email.
 
 **Step 3 — Before completing login, ask the user about their preferences:**
 
-1. **Accept Terms of Service** — Present the [Terms of Service](https://bankr.bot/terms) link and confirm the user agrees. Required for new users — do not pass `--accept-terms` unless the user has explicitly confirmed.
+1. **Accept Terms of Service** — Present the [Terms of Service](https://torque.fi/terms) link and confirm the user agrees. Required for new users — do not pass `--accept-terms` unless the user has explicitly confirmed.
 2. **Read-only or read-write API key?**
    - **Read-only** (default) — portfolio, balances, prices, research only
    - **Read-write** (`--read-write`) — enables swaps, transfers, orders, token launches, leverage, Polymarket bets
-3. **Enable LLM gateway access?** (`--llm`) — multi-model API at `llm.bankr.bot` (currently limited to beta testers). Skip if user doesn't need it.
+3. **Enable LLM gateway access?** (`--llm`) — multi-model API at `llm.torque.fi` (currently limited to beta testers). Skip if user doesn't need it.
 4. **Key name?** (`--key-name`) — a display name for the API key (e.g. "My Agent", "Trading Bot")
 
 **Step 4 — Construct and run the step 2 command** with the user's choices:
 
 ```bash
 # Example with all options
-bankr login email <user-email> --code <otp> --accept-terms --key-name "My Agent" --read-write --llm
+torque login email <user-email> --code <otp> --accept-terms --key-name "My Agent" --read-write --llm
 
 # Example read-only, no LLM
-bankr login email <user-email> --code <otp> --accept-terms --key-name "Research Bot"
+torque login email <user-email> --code <otp> --accept-terms --key-name "Research Bot"
 ```
 
 #### Login options reference
@@ -99,10 +99,10 @@ bankr login email <user-email> --code <otp> --accept-terms --key-name "Research 
 | Option | Description |
 |--------|-------------|
 | `--code <otp>` | OTP code received via email (step 2) |
-| `--accept-terms` | Accept [Terms of Service](https://bankr.bot/terms) without prompting (required for new users) |
+| `--accept-terms` | Accept [Terms of Service](https://torque.fi/terms) without prompting (required for new users) |
 | `--key-name <name>` | Display name for the API key (e.g. "My Agent"). Prompted if omitted |
 | `--read-write` | Enable write operations: swaps, transfers, orders, token launches, leverage, Polymarket bets. **Without this flag, the key is read-only** (portfolio, balances, prices, research only) |
-| `--llm` | Enable [LLM gateway](https://docs.bankr.bot/llm-gateway/overview) access (multi-model API at `llm.bankr.bot`). Currently limited to beta testers |
+| `--llm` | Enable [LLM gateway](https://docs.torque.fi/llm-gateway/overview) access (multi-model API at `llm.torque.fi`). Currently limited to beta testers |
 
 Any option not provided on the command line will be prompted interactively by the CLI, so you can mix headless and interactive as needed.
 
@@ -111,23 +111,23 @@ Any option not provided on the command line will be prompted interactively by th
 If the user already has an API key:
 
 ```bash
-bankr login --api-key bk_YOUR_KEY_HERE
+torque login --api-key bk_YOUR_KEY_HERE
 ```
 
-If they need to create one at the Bankr Terminal:
-1. Run `bankr login --url` — prints the terminal URL
+If they need to create one at the Torque Terminal:
+1. Run `torque login --url` — prints the assistant URL
 2. Present the URL to the user, ask them to generate a `bk_...` key
-3. Run `bankr login --api-key bk_THE_KEY`
+3. Run `torque login --api-key bk_THE_KEY`
 
 #### Separate LLM Gateway Key (Optional)
 
-If your LLM gateway key differs from your API key, pass `--llm-key` during login or run `bankr config set llmKey YOUR_LLM_KEY` afterward. When not set, the API key is used for both. See [references/llm-gateway.md](references/llm-gateway.md) for full details.
+If your LLM gateway key differs from your API key, pass `--llm-key` during login or run `torque config set llmKey YOUR_LLM_KEY` afterward. When not set, the API key is used for both. See [references/llm-gateway.md](references/llm-gateway.md) for full details.
 
 #### Verify Setup
 
 ```bash
-bankr whoami
-bankr prompt "What is my balance?"
+torque whoami
+torque prompt "What is my balance?"
 ```
 
 ## Option 2: REST API (Direct)
@@ -139,7 +139,7 @@ No CLI installation required — call the API directly with `curl`, `fetch`, or 
 All requests require an `X-API-Key` header:
 
 ```bash
-curl -X POST "https://api.bankr.bot/agent/prompt" \
+curl -X POST "https://api.torque.fi/agent/prompt" \
   -H "X-API-Key: bk_YOUR_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{"prompt": "What is my ETH balance?"}'
@@ -149,16 +149,16 @@ curl -X POST "https://api.bankr.bot/agent/prompt" \
 
 ```bash
 # 1. Submit a prompt — returns a job ID
-JOB=$(curl -s -X POST "https://api.bankr.bot/agent/prompt" \
-  -H "X-API-Key: $BANKR_API_KEY" \
+JOB=$(curl -s -X POST "https://api.torque.fi/agent/prompt" \
+  -H "X-API-Key: $TORQUE_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{"prompt": "What is my ETH balance?"}')
 JOB_ID=$(echo "$JOB" | jq -r '.jobId')
 
 # 2. Poll until terminal status
 while true; do
-  RESULT=$(curl -s "https://api.bankr.bot/agent/job/$JOB_ID" \
-    -H "X-API-Key: $BANKR_API_KEY")
+  RESULT=$(curl -s "https://api.torque.fi/agent/job/$JOB_ID" \
+    -H "X-API-Key: $TORQUE_API_KEY")
   STATUS=$(echo "$RESULT" | jq -r '.status')
   [ "$STATUS" = "completed" ] || [ "$STATUS" = "failed" ] || [ "$STATUS" = "cancelled" ] && break
   sleep 2
@@ -174,20 +174,20 @@ Every prompt response includes a `threadId`. Pass it back to continue the conver
 
 ```bash
 # Start — the response includes a threadId
-curl -X POST "https://api.bankr.bot/agent/prompt" \
-  -H "X-API-Key: $BANKR_API_KEY" \
+curl -X POST "https://api.torque.fi/agent/prompt" \
+  -H "X-API-Key: $TORQUE_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{"prompt": "What is the price of ETH?"}'
 # → {"jobId": "job_abc", "threadId": "thr_XYZ", ...}
 
 # Continue — pass threadId to maintain context
-curl -X POST "https://api.bankr.bot/agent/prompt" \
-  -H "X-API-Key: $BANKR_API_KEY" \
+curl -X POST "https://api.torque.fi/agent/prompt" \
+  -H "X-API-Key: $TORQUE_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{"prompt": "And what about SOL?", "threadId": "thr_XYZ"}'
 ```
 
-Omit `threadId` to start a new conversation. CLI equivalent: `bankr prompt --continue` (reuses last thread) or `bankr prompt --thread <id>`.
+Omit `threadId` to start a new conversation. CLI equivalent: `torque prompt --continue` (reuses last thread) or `torque prompt --thread <id>`.
 
 ### API Endpoints Summary
 
@@ -209,41 +209,41 @@ For full API details (request/response schemas, job states, rich data, polling s
 
 | Command | Description |
 |---------|-------------|
-| `bankr login` | Authenticate with the Bankr API (interactive menu) |
-| `bankr login email <address>` | Send OTP to email (headless step 1) |
-| `bankr login email <address> --code <otp> [options]` | Verify OTP and complete setup (headless step 2) |
-| `bankr login --api-key <key>` | Login with an existing API key directly |
-| `bankr login --api-key <key> --llm-key <key>` | Login with separate LLM gateway key |
-| `bankr login --url` | Print Bankr Terminal URL for API key generation |
-| `bankr logout` | Clear stored credentials |
-| `bankr whoami` | Show current authentication info |
-| `bankr prompt <text>` | Send a prompt to the Bankr AI agent |
-| `bankr prompt --continue <text>` | Continue the most recent conversation thread |
-| `bankr prompt --thread <id> <text>` | Continue a specific conversation thread |
-| `bankr status <jobId>` | Check the status of a running job |
-| `bankr cancel <jobId>` | Cancel a running job |
-| `bankr skills` | Show all Bankr AI agent skills with examples |
+| `torque login` | Authenticate with the Torque API (interactive menu) |
+| `torque login email <address>` | Send OTP to email (headless step 1) |
+| `torque login email <address> --code <otp> [options]` | Verify OTP and complete setup (headless step 2) |
+| `torque login --api-key <key>` | Login with an existing API key directly |
+| `torque login --api-key <key> --llm-key <key>` | Login with separate LLM gateway key |
+| `torque login --url` | Print Torque Terminal URL for API key generation |
+| `torque logout` | Clear stored credentials |
+| `torque whoami` | Show current authentication info |
+| `torque prompt <text>` | Send a prompt to the Torque AI agent |
+| `torque prompt --continue <text>` | Continue the most recent conversation thread |
+| `torque prompt --thread <id> <text>` | Continue a specific conversation thread |
+| `torque status <jobId>` | Check the status of a running job |
+| `torque cancel <jobId>` | Cancel a running job |
+| `torque skills` | Show all Torque AI agent skills with examples |
 
 ### Configuration Commands
 
 | Command | Description |
 |---------|-------------|
-| `bankr config get [key]` | Get config value(s) |
-| `bankr config set <key> <value>` | Set a config value |
-| `bankr --config <path> <command>` | Use a custom config file path |
+| `torque config get [key]` | Get config value(s) |
+| `torque config set <key> <value>` | Set a config value |
+| `torque --config <path> <command>` | Use a custom config file path |
 
 Valid config keys: `apiKey`, `apiUrl`, `llmKey`, `llmUrl`
 
-Default config location: `~/.bankr/config.json`. Override with `--config` or `BANKR_CONFIG` env var.
+Default config location: `~/.torque/config.json`. Override with `--config` or `TORQUE_CONFIG` env var.
 
 ### Environment Variables
 
 | Variable | Description |
 |----------|-------------|
-| `BANKR_API_KEY` | API key (overrides stored key) |
-| `BANKR_API_URL` | API URL (default: `https://api.bankr.bot`) |
-| `BANKR_LLM_KEY` | LLM gateway key (falls back to `BANKR_API_KEY` if not set) |
-| `BANKR_LLM_URL` | LLM gateway URL (default: `https://llm.bankr.bot`) |
+| `TORQUE_API_KEY` | API key (overrides stored key) |
+| `TORQUE_API_URL` | API URL (default: `https://api.torque.fi`) |
+| `TORQUE_LLM_KEY` | LLM gateway key (falls back to `TORQUE_API_KEY` if not set) |
+| `TORQUE_LLM_URL` | LLM gateway URL (default: `https://llm.torque.fi`) |
 
 Environment variables override config file values. Config file values override defaults.
 
@@ -251,12 +251,12 @@ Environment variables override config file values. Config file values override d
 
 | Command | Description |
 |---------|-------------|
-| `bankr llm models` | List available LLM models |
-| `bankr llm setup openclaw [--install]` | Generate or install OpenClaw config |
-| `bankr llm setup opencode [--install]` | Generate or install OpenCode config |
-| `bankr llm setup claude` | Show Claude Code environment setup |
-| `bankr llm setup cursor` | Show Cursor IDE setup instructions |
-| `bankr llm claude [args...]` | Launch Claude Code via the Bankr LLM Gateway |
+| `torque llm models` | List available LLM models |
+| `torque llm setup openclaw [--install]` | Generate or install OpenClaw config |
+| `torque llm setup opencode [--install]` | Generate or install OpenCode config |
+| `torque llm setup claude` | Show Claude Code environment setup |
+| `torque llm setup cursor` | Show Cursor IDE setup instructions |
+| `torque llm claude [args...]` | Launch Claude Code via the Torque LLM Gateway |
 
 ## Core Usage
 
@@ -265,14 +265,14 @@ Environment variables override config file values. Config file values override d
 For straightforward requests that complete quickly:
 
 ```bash
-bankr prompt "What is my ETH balance?"
-bankr prompt "What's the price of Bitcoin?"
+torque prompt "What is my ETH balance?"
+torque prompt "What's the price of Bitcoin?"
 ```
 
 The CLI handles the full submit-poll-complete workflow automatically. You can also use the shorthand — any unrecognized command is treated as a prompt:
 
 ```bash
-bankr What is the price of ETH?
+torque What is the price of ETH?
 ```
 
 ### Interactive Prompt
@@ -281,11 +281,11 @@ For prompts containing `$` or special characters that the shell would expand:
 
 ```bash
 # Interactive mode — no shell expansion issues
-bankr prompt
+torque prompt
 # Then type: Buy $50 of ETH on Base
 
 # Or pipe input
-echo 'Buy $50 of ETH on Base' | bankr prompt
+echo 'Buy $50 of ETH on Base' | torque prompt
 ```
 
 ### Conversation Threads
@@ -294,15 +294,15 @@ Continue a multi-turn conversation with the agent:
 
 ```bash
 # First prompt — starts a new thread automatically
-bankr prompt "What is the price of ETH?"
+torque prompt "What is the price of ETH?"
 # → Thread: thr_ABC123
 
 # Continue the conversation (agent remembers the ETH context)
-bankr prompt --continue "And what about BTC?"
-bankr prompt -c "Compare them"
+torque prompt --continue "And what about BTC?"
+torque prompt -c "Compare them"
 
 # Resume any thread by ID
-bankr prompt --thread thr_ABC123 "Show me ETH chart"
+torque prompt --thread thr_ABC123 "Show me ETH chart"
 ```
 
 Thread IDs are automatically saved to config after each prompt. The `--continue` / `-c` flag reuses the last thread.
@@ -313,35 +313,35 @@ For advanced use or long-running operations:
 
 ```bash
 # Submit and get job ID
-bankr prompt "Buy $100 of ETH"
+torque prompt "Buy $100 of ETH"
 # → Job submitted: job_abc123
 
 # Check status of a specific job
-bankr status job_abc123
+torque status job_abc123
 
 # Cancel if needed
-bankr cancel job_abc123
+torque cancel job_abc123
 ```
 
 ## LLM Gateway
 
-The [Bankr LLM Gateway](https://docs.bankr.bot/llm-gateway/overview) is a unified API for Claude, Gemini, GPT, and other models — multi-provider access, cost tracking, automatic failover, and SDK compatibility through a single endpoint.
+The [Torque LLM Gateway](https://docs.torque.fi/llm-gateway/overview) is a unified API for Claude, Gemini, GPT, and other models — multi-provider access, cost tracking, automatic failover, and SDK compatibility through a single endpoint.
 
-**Base URL:** `https://llm.bankr.bot`
+**Base URL:** `https://llm.torque.fi`
 
 Uses your `llmKey` if configured, otherwise falls back to your API key.
 
 ### Quick Commands
 
 ```bash
-bankr llm models                           # List available models
-bankr llm credits                          # Check credit balance
-bankr llm setup openclaw --install         # Install Bankr provider into OpenClaw
-bankr llm setup opencode --install         # Install Bankr provider into OpenCode
-bankr llm setup claude                     # Print Claude Code env vars
-bankr llm setup cursor                     # Cursor setup instructions
-bankr llm claude                           # Launch Claude Code through gateway
-bankr llm claude --model claude-opus-4.6   # Launch with specific model
+torque llm models                           # List available models
+torque llm credits                          # Check credit balance
+torque llm setup openclaw --install         # Install Torque provider into OpenClaw
+torque llm setup opencode --install         # Install Torque provider into OpenCode
+torque llm setup claude                     # Print Claude Code env vars
+torque llm setup cursor                     # Cursor setup instructions
+torque llm claude                           # Launch Claude Code through gateway
+torque llm claude --model claude-opus-4.6   # Launch with specific model
 ```
 
 ### Direct SDK Usage
@@ -350,8 +350,8 @@ The gateway works with standard OpenAI and Anthropic SDKs — just override the 
 
 ```bash
 # OpenAI-compatible
-curl -X POST "https://llm.bankr.bot/v1/chat/completions" \
-  -H "Authorization: Bearer $BANKR_LLM_KEY" \
+curl -X POST "https://llm.torque.fi/v1/chat/completions" \
+  -H "Authorization: Bearer $TORQUE_LLM_KEY" \
   -H "Content-Type: application/json" \
   -d '{"model": "claude-sonnet-4.5", "messages": [{"role": "user", "content": "Hello"}]}'
 ```
@@ -416,6 +416,8 @@ For full model list, provider config JSON shape, SDK examples (Python, TypeScrip
 
 ### Polymarket Betting
 
+Polymarket is on **Polygon only** (see [chain-feature-matrix](../docs/chain-feature-matrix.md)).
+
 - Search prediction markets
 - Check odds
 - Place bets on outcomes
@@ -435,14 +437,9 @@ For full model list, provider config JSON shape, SDK examples (Python, TypeScrip
 
 ### Token Deployment
 
-- **EVM (Base)**: Deploy ERC20 tokens via Clanker with customizable metadata and social links
-- **Solana**: Launch SPL tokens via Raydium LaunchLab with bonding curve and auto-migration to CPMM
-- Creator fee claiming on both chains
-- Fee Key NFTs for Solana (50% LP trading fees post-migration)
-- Optional fee recipient designation with 99.9%/0.1% split (Solana)
-- Both creator AND fee recipient can claim bonding curve fees (gas sponsored)
-- Optional vesting parameters (Solana)
-- Rate limits: 1/day standard, 10/day Bankr Club (gas sponsored within limits)
+- **EVM (Clanker):** Deploy ERC20 tokens via Clanker **only on Base, Ethereum, Arbitrum, and Monad** (Monad: static fees only). Not available on Abstract, Plasma, Linea, Hyper, Ink, BSC, Avalanche, Polygon. See [chain-feature-matrix](../docs/chain-feature-matrix.md).
+- Creator fee claiming; optional fee recipient; gas sponsored within limits
+- Rate limits: 1/day standard, 10/day Torque Club (gas sponsored within limits)
 
 **Reference**: [references/token-deployment.md](references/token-deployment.md)
 
@@ -467,32 +464,41 @@ For full model list, provider config JSON shape, SDK examples (Python, TypeScrip
 
 ## Supported Chains
 
-| Chain    | Native Token | Best For                      | Gas Cost |
-| -------- | ------------ | ----------------------------- | -------- |
-| Base     | ETH          | Memecoins, general trading    | Very Low |
-| Polygon  | MATIC        | Gaming, NFTs, frequent trades | Very Low |
-| Ethereum | ETH          | Blue chips, high liquidity    | High     |
-| Solana   | SOL          | High-speed trading            | Minimal  |
-| Unichain | ETH          | Newer L2 option               | Very Low |
+Single source of truth: [docs/chains-config.md](../docs/chains-config.md). **Chain requirements:** Some features are limited to a subset of chains; see [chain-feature-matrix](../docs/chain-feature-matrix.md).
+
+| Chain     | Chain ID | Native Token |
+|-----------|----------|--------------|
+| Ethereum  | 1        | ETH          |
+| BSC       | 56       | BNB          |
+| Polygon   | 137      | MATIC        |
+| Monad     | 143      | MON          |
+| Arbitrum  | 42161    | ETH          |
+| Avalanche | 43114    | AVAX         |
+| Base      | 8453     | ETH          |
+| Plasma    | 9745     | ETH          |
+| Hyper     | 999      | HYPE         |
+| Abstract  | 2741     | ABS          |
+| Linea     | 59144    | ETH          |
+| Ink       | 57073    | INK          |
 
 ## Safety & Access Control
 
-**Dedicated Agent Wallet**: When building autonomous agents, create a separate Bankr account rather than using your personal wallet. This isolates agent funds — if a key is compromised, only the agent wallet is exposed. Fund it with limited amounts and replenish as needed.
+**Dedicated Agent Wallet**: When building autonomous agents, create a separate Torque account rather than using your personal wallet. This isolates agent funds — if a key is compromised, only the agent wallet is exposed. Fund it with limited amounts and replenish as needed.
 
-**API Key Types**: Bankr uses a single key format (`bk_...`) with capability flags (`agentApiEnabled`, `llmGatewayEnabled`). You can optionally configure a separate LLM Gateway key via `bankr config set llmKey` or `BANKR_LLM_KEY` — useful when you want independent revocation or different permissions for agent vs LLM access.
+**API Key Types**: Torque uses a single key format (`bk_...`) with capability flags (`agentApiEnabled`, `llmGatewayEnabled`). You can optionally configure a separate LLM Gateway key via `torque config set llmKey` or `TORQUE_LLM_KEY` — useful when you want independent revocation or different permissions for agent vs LLM access.
 
 **Read-Only API Keys**: Keys with `readOnly: true` filter all write tools (swaps, transfers, staking, token launches, etc.) from agent sessions. The `/agent/sign` and `/agent/submit` endpoints return 403. Ideal for monitoring bots and research agents.
 
 **IP Whitelisting**: Set `allowedIps` on your API key to restrict usage to specific IPs. Requests from non-whitelisted IPs are rejected with 403 at the auth layer.
 
-**Rate Limits**: 100 messages/day (standard), 1,000/day (Bankr Club), or custom per key. Resets 24h from first message (rolling window). LLM Gateway uses a credit-based system.
+**Rate Limits**: 100 messages/day (standard), 1,000/day (Torque Club), or custom per key. Resets 24h from first message (rolling window). LLM Gateway uses a credit-based system.
 
 **Key safety rules:**
-- Store keys in environment variables (`BANKR_API_KEY`, `BANKR_LLM_KEY`), never in source code
-- Add `~/.bankr/` and `.env` to `.gitignore` — the CLI stores credentials in `~/.bankr/config.json`
+- Store keys in environment variables (`TORQUE_API_KEY`, `TORQUE_LLM_KEY`), never in source code
+- Add `~/.torque/` and `.env` to `.gitignore` — the CLI stores credentials in `~/.torque/config.json`
 - Test with small amounts on low-cost chains (Base, Polygon) before production use
 - Use `waitForConfirmation: true` with `/agent/submit` — transactions execute immediately with no confirmation prompt
-- Rotate keys periodically and revoke immediately if compromised at [bankr.bot/api](https://bankr.bot/api)
+- Rotate keys periodically and revoke immediately if compromised at [app.torque.fi/api](https://app.torque.fi/api)
 
 **Reference**: [references/safety.md](references/safety.md)
 
@@ -502,64 +508,64 @@ For full model list, provider config JSON shape, SDK examples (Python, TypeScrip
 
 ```bash
 # Check balance
-bankr prompt "What is my ETH balance on Base?"
+torque prompt "What is my ETH balance on Base?"
 
 # Check price
-bankr prompt "What's the current price of PEPE?"
+torque prompt "What's the current price of PEPE?"
 
 # Then trade
-bankr prompt "Buy $20 of PEPE on Base"
+torque prompt "Buy $20 of PEPE on Base"
 ```
 
 ### Portfolio Review
 
 ```bash
 # Full portfolio
-bankr prompt "Show my complete portfolio"
+torque prompt "Show my complete portfolio"
 
 # Chain-specific
-bankr prompt "What tokens do I have on Base?"
+torque prompt "What tokens do I have on Base?"
 
 # Token-specific
-bankr prompt "Show my ETH across all chains"
+torque prompt "Show my ETH across all chains"
 ```
 
 ### Set Up Automation
 
 ```bash
 # DCA strategy
-bankr prompt "DCA $100 into ETH every week"
+torque prompt "DCA $100 into ETH every week"
 
 # Stop loss protection
-bankr prompt "Set stop loss for my ETH at $2,500"
+torque prompt "Set stop loss for my ETH at $2,500"
 
 # Limit order
-bankr prompt "Buy ETH if price drops to $3,000"
+torque prompt "Buy ETH if price drops to $3,000"
 ```
 
 ### Market Research
 
 ```bash
 # Price and analysis
-bankr prompt "Do technical analysis on ETH"
+torque prompt "Do technical analysis on ETH"
 
 # Trending tokens
-bankr prompt "What tokens are trending on Base?"
+torque prompt "What tokens are trending on Base?"
 
 # Compare tokens
-bankr prompt "Compare ETH vs SOL"
+torque prompt "Compare ETH vs SOL"
 ```
 
 ## API Workflow
 
-Bankr uses an asynchronous job-based API:
+Torque uses an asynchronous job-based API:
 
 1. **Submit** — Send prompt (with optional `threadId`), get job ID and thread ID
 2. **Poll** — Check status every 2 seconds
 3. **Complete** — Process results when done
 4. **Continue** — Reuse `threadId` for multi-turn conversations
 
-The `bankr prompt` command handles this automatically. When using the REST API directly, implement the poll loop yourself (see Option 2 above or the reference below). For manual job control via CLI, use `bankr status <jobId>` and `bankr cancel <jobId>`.
+The `torque prompt` command handles this automatically. When using the REST API directly, implement the poll loop yourself (see Option 2 above or the reference below). For manual job control via CLI, use `torque status <jobId>` and `torque cancel <jobId>`.
 
 For details on the API structure, job states, polling strategy, and error handling, see:
 
@@ -567,7 +573,7 @@ For details on the API structure, job states, polling strategy, and error handli
 
 ### Synchronous Endpoints
 
-For direct signing and transaction submission, Bankr also provides synchronous endpoints:
+For direct signing and transaction submission, Torque also provides synchronous endpoints:
 
 - **POST /agent/sign** - Sign messages, typed data, or transactions without broadcasting
 - **POST /agent/submit** - Submit raw transactions directly to the blockchain
@@ -583,7 +589,7 @@ These endpoints return immediately (no polling required) and are ideal for:
 
 Common issues and fixes:
 
-- **Authentication errors** → Run `bankr login` or check `bankr whoami` (CLI), or verify your `X-API-Key` header (REST API)
+- **Authentication errors** → Run `torque login` or check `torque whoami` (CLI), or verify your `X-API-Key` header (REST API)
 - **Insufficient balance** → Add funds or reduce amount
 - **Token not found** → Verify symbol and chain
 - **Transaction reverted** → Check parameters and balances
@@ -603,7 +609,7 @@ For comprehensive error troubleshooting, setup instructions, and debugging steps
 4. Set IP whitelisting for server-side agents with known IPs
 5. Verify addresses before large transfers
 6. Use stop losses for leverage trading
-7. Store keys in environment variables, not source code — add `~/.bankr/` to `.gitignore`
+7. Store keys in environment variables, not source code — add `~/.torque/` to `.gitignore`
 
 See [references/safety.md](references/safety.md) for comprehensive safety guidance.
 
@@ -678,6 +684,8 @@ See [references/safety.md](references/safety.md) for comprehensive safety guidan
 
 ### Polymarket
 
+Polymarket is on **Polygon only** (see [chain-feature-matrix](../docs/chain-feature-matrix.md)).
+
 - "What are the odds Trump wins?"
 - "Bet $10 on Yes for [market]"
 - "Show my Polymarket positions"
@@ -696,21 +704,10 @@ See [references/safety.md](references/safety.md) for comprehensive safety guidan
 
 ### Token Deployment
 
-**Solana (LaunchLab):**
+**EVM (Clanker):** Only on Base, Ethereum, Arbitrum, and Monad (see [chain-feature-matrix](../docs/chain-feature-matrix.md)).
 
-- "Launch a token called MOON on Solana"
-- "Launch a token called FROG and give fees to @0xDeployer"
-- "Deploy SpaceRocket with symbol ROCK"
-- "Launch BRAIN and route fees to 7xKXtg..."
-- "How much fees can I claim for MOON?"
-- "Claim my fees for MOON" (works for creator or fee recipient)
-- "Show my Fee Key NFTs"
-- "Claim my fee NFT for ROCKET" (post-migration)
-- "Transfer fees for MOON to 7xKXtg..."
-
-**EVM (Clanker):**
-
-- "Deploy a token called BankrFan with symbol BFAN on Base"
+- "Deploy a token called TorqueFan with symbol BFAN on Base"
+- "Deploy a token on Arbitrum" / "… on Monad"
 - "Claim fees for my token MTK"
 
 ### Arbitrary Transactions
@@ -725,19 +722,19 @@ Direct message signing without AI processing:
 
 ```bash
 # Sign a plain text message
-curl -X POST "https://api.bankr.bot/agent/sign" \
+curl -X POST "https://api.torque.fi/agent/sign" \
   -H "X-API-Key: $API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"signatureType": "personal_sign", "message": "Hello, Bankr!"}'
+  -d '{"signatureType": "personal_sign", "message": "Hello, Torque!"}'
 
 # Sign EIP-712 typed data (permits, orders)
-curl -X POST "https://api.bankr.bot/agent/sign" \
+curl -X POST "https://api.torque.fi/agent/sign" \
   -H "X-API-Key: $API_KEY" \
   -H "Content-Type: application/json" \
   -d '{"signatureType": "eth_signTypedData_v4", "typedData": {...}}'
 
 # Sign a transaction without broadcasting
-curl -X POST "https://api.bankr.bot/agent/sign" \
+curl -X POST "https://api.torque.fi/agent/sign" \
   -H "X-API-Key: $API_KEY" \
   -H "Content-Type: application/json" \
   -d '{"signatureType": "eth_signTransaction", "transaction": {"to": "0x...", "chainId": 8453}}'
@@ -749,7 +746,7 @@ Direct transaction submission without AI processing:
 
 ```bash
 # Submit a raw transaction
-curl -X POST "https://api.bankr.bot/agent/submit" \
+curl -X POST "https://api.torque.fi/agent/submit" \
   -H "X-API-Key: $API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
@@ -762,12 +759,12 @@ curl -X POST "https://api.bankr.bot/agent/submit" \
 
 ## Resources
 
-- **Documentation**: https://docs.bankr.bot
-- **LLM Gateway Docs**: https://docs.bankr.bot/llm-gateway/overview
-- **API Key Management**: https://bankr.bot/api
-- **Terminal**: https://bankr.bot/terminal
-- **CLI Package**: https://www.npmjs.com/package/@bankr/cli
-- **Twitter**: @bankr_bot
+- **Documentation**: https://docs.torque.fi
+- **LLM Gateway Docs**: https://docs.torque.fi/llm-gateway/overview
+- **API Key Management**: https://app.torque.fi/api
+- **Assistant**: https://app.torque.fi/assistant
+- **CLI Package**: https://www.npmjs.com/package/@torque/cli
+- **Twitter**: @torque_bot
 
 ## Troubleshooting
 
@@ -775,10 +772,10 @@ curl -X POST "https://api.bankr.bot/agent/submit" \
 
 ```bash
 # Verify installation
-which bankr
+which torque
 
 # Reinstall if needed
-bun install -g @bankr/cli
+bun install -g @torque/cli
 ```
 
 ### Authentication Issues
@@ -786,19 +783,19 @@ bun install -g @bankr/cli
 **CLI:**
 ```bash
 # Check current auth
-bankr whoami
+torque whoami
 
 # Re-authenticate
-bankr login
+torque login
 
 # Check LLM key specifically
-bankr config get llmKey
+torque config get llmKey
 ```
 
 **REST API:**
 ```bash
 # Test your API key
-curl -s "https://api.bankr.bot/_health" -H "X-API-Key: $BANKR_API_KEY"
+curl -s "https://api.torque.fi/_health" -H "X-API-Key: $TORQUE_API_KEY"
 ```
 
 ### API Errors
@@ -808,9 +805,9 @@ See [references/error-handling.md](references/error-handling.md) for comprehensi
 ### Getting Help
 
 1. Check error message in CLI output or API response
-2. Run `bankr whoami` to verify auth (CLI) or test with a curl to `/_health` (REST API)
+2. Run `torque whoami` to verify auth (CLI) or test with a curl to `/_health` (REST API)
 3. Consult relevant reference document
-4. Test with simple queries first (`bankr prompt "What is my balance?"` or `POST /agent/prompt`)
+4. Test with simple queries first (`torque prompt "What is my balance?"` or `POST /agent/prompt`)
 
 ---
 
@@ -818,4 +815,4 @@ See [references/error-handling.md](references/error-handling.md) for comprehensi
 
 **Security**: Keep your API key private. Never commit your config file to version control. Only trade amounts you can afford to lose.
 
-**Quick Win**: Start by checking your portfolio (`bankr prompt "Show my portfolio"`) to see what's possible, then try a small $5-10 trade on Base to get familiar with the flow.
+**Quick Win**: Start by checking your portfolio (`torque prompt "Show my portfolio"`) to see what's possible, then try a small $5-10 trade on Base to get familiar with the flow.

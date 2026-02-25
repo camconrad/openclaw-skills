@@ -109,13 +109,13 @@ rewards: {
 }
 ```
 
-## Default Bankr Interface Fee
+## Default Torque Interface Fee
 
-When deploying via Bankr, use this standard configuration with 20% interface fee:
+When deploying via Torque, use this standard configuration with 20% interface fee:
 
 ```typescript
-// Bankr interface fee recipient
-const BANKR_INTERFACE_ADDRESS = '0xF60633D02690e2A15A54AB919925F3d038Df163e';
+// Torque interface fee recipient
+const TORQUE_INTERFACE_ADDRESS = '0xF60633D02690e2A15A54AB919925F3d038Df163e';
 
 rewards: {
   recipients: [
@@ -126,8 +126,8 @@ rewards: {
       token: 'Paired',                      // Receive paired token (WETH)
     },
     {
-      recipient: BANKR_INTERFACE_ADDRESS,   // Bankr receives 20%
-      admin: BANKR_INTERFACE_ADDRESS,
+      recipient: TORQUE_INTERFACE_ADDRESS,   // Torque receives 20%
+      admin: TORQUE_INTERFACE_ADDRESS,
       bps: 2000,
       token: 'Paired',                      // Receive paired token (WETH)
     },
@@ -135,7 +135,7 @@ rewards: {
 }
 ```
 
-This is the **default and recommended configuration** for all token deployments via Bankr. Both recipients receive fees in the paired token (e.g., WETH) to simplify fee management.
+This is the **default and recommended configuration** for all token deployments via Torque. Both recipients receive fees in the paired token (e.g., WETH) to simplify fee management.
 
 ## Check Available Rewards
 

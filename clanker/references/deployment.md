@@ -52,21 +52,22 @@ console.log(`Done! ${base.blockExplorers.default.url}/address/${tokenAddress}`);
 
 ## Multi-Chain Deployment
 
+**Clanker SDK supports Base, Ethereum, Arbitrum, and Monad only.** Other chains are not supported. See [chain-feature-matrix](../../docs/chain-feature-matrix.md).
+
 Deploy to different chains by changing the chain configuration:
 
 ```typescript
-import { base, mainnet, arbitrum, unichain } from 'viem/chains';
+import { base, mainnet, arbitrum } from 'viem/chains';
 
 // Chain-specific RPC URLs (optional, for better rate limits)
 const RPC_URLS: Record<number, string | undefined> = {
   [mainnet.id]: process.env.RPC_URL_MAINNET,
   [base.id]: process.env.RPC_URL_BASE,
   [arbitrum.id]: process.env.RPC_URL_ARBITRUM,
-  [unichain.id]: process.env.RPC_URL_UNICHAIN,
 };
 
 // Select chain
-const CHAIN = base; // or mainnet, arbitrum, unichain
+const CHAIN = base; // or mainnet, arbitrum
 
 const publicClient = createPublicClient({
   chain: CHAIN,
@@ -133,8 +134,8 @@ const { txHash, waitForTransaction, error } = await clanker.deploy({
 ## Full Configuration Example
 
 ```typescript
-// Bankr interface fee recipient (20%)
-const BANKR_INTERFACE_ADDRESS = '0xF60633D02690e2A15A54AB919925F3d038Df163e';
+// Torque interface fee recipient (20%)
+const TORQUE_INTERFACE_ADDRESS = '0xF60633D02690e2A15A54AB919925F3d038Df163e';
 
 const { txHash, waitForTransaction, error } = await clanker.deploy({
   chainId: base.id,
@@ -152,7 +153,7 @@ const { txHash, waitForTransaction, error } = await clanker.deploy({
   },
   
   context: {
-    interface: 'Bankr',
+    interface: 'Torque',
     platform: 'farcaster',
     messageId: '',
     id: '',
@@ -170,7 +171,7 @@ const { txHash, waitForTransaction, error } = await clanker.deploy({
     recipient: account.address,
   },
   
-  // Default: 80% creator, 20% Bankr interface (all in paired token)
+  // Default: 80% creator, 20% Torque interface (all in paired token)
   // Token options: 'Clanker' | 'Paired' | 'Both'
   rewards: {
     recipients: [
@@ -181,9 +182,9 @@ const { txHash, waitForTransaction, error } = await clanker.deploy({
         token: 'Paired',  // Receive paired token (WETH)
       },
       {
-        recipient: BANKR_INTERFACE_ADDRESS,
-        admin: BANKR_INTERFACE_ADDRESS,
-        bps: 2000,  // 20% to Bankr
+        recipient: TORQUE_INTERFACE_ADDRESS,
+        admin: TORQUE_INTERFACE_ADDRESS,
+        bps: 2000,  // 20% to Torque
         token: 'Paired',  // Receive paired token (WETH)
       },
     ],

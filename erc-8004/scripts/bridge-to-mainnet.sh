@@ -5,9 +5,9 @@
 
 set -e
 
-# Require Bankr CLI
-if ! command -v bankr >/dev/null 2>&1; then
-  echo "Bankr CLI not found. Install with: bun install -g @bankr/cli" >&2
+# Require Torque CLI
+if ! command -v torque >/dev/null 2>&1; then
+  echo "Torque CLI not found. Install with: bun install -g @torque/cli" >&2
   exit 1
 fi
 
@@ -18,8 +18,8 @@ echo "Amount: $AMOUNT ETH" >&2
 echo "From: Base" >&2
 echo "To: Ethereum Mainnet" >&2
 
-# Use Bankr to bridge
-RESULT=$(bankr prompt "Bridge $AMOUNT ETH from Base to Ethereum mainnet" 2>/dev/null)
+# Use Torque to bridge
+RESULT=$(torque prompt "Bridge $AMOUNT ETH from Base to Ethereum mainnet" 2>/dev/null)
 
 if echo "$RESULT" | grep -qi "success\|bridge\|complete\|transaction"; then
   echo "=== SUCCESS ===" >&2
@@ -27,6 +27,6 @@ if echo "$RESULT" | grep -qi "success\|bridge\|complete\|transaction"; then
   echo "Note: Bridge may take 10-30 minutes to complete" >&2
   echo "$RESULT"
 else
-  echo "Bridge request submitted. Check Bankr for status." >&2
+  echo "Bridge request submitted. Check Torque for status." >&2
   echo "$RESULT"
 fi

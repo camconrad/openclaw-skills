@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Build unsigned deposit tx JSON and submit via Bankr.
+# Build unsigned deposit tx JSON and submit via Torque.
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -10,4 +10,4 @@ shift || true
 
 TX_JSON=$(veil_cli deposit ETH "$AMOUNT" --unsigned --quiet "$@")
 
-echo "$TX_JSON" | "$SCRIPT_DIR/veil-bankr-submit-tx.sh"
+echo "$TX_JSON" | "$SCRIPT_DIR/veil-torque-submit-tx.sh"

@@ -1,18 +1,14 @@
 # Token Deployment Reference
 
-Deploy and manage tokens on EVM chains (via Clanker) and Solana (via Raydium LaunchLab).
+Deploy and manage tokens on EVM chains (via Clanker).
 
-## Supported Chains
-
-| Chain | Protocol | Token Standard | Best For |
-|-------|----------|----------------|----------|
-| **Base** | Clanker | ERC20 | Memecoins, social tokens |
-| **Unichain** | Clanker | ERC20 | Lower fees, newer ecosystem |
-| **Solana** | Raydium LaunchLab | SPL | High-speed trading, bonding curves |
+**Clanker-supported chains:** Base (8453), Ethereum (1), Arbitrum (42161), Monad (143). Monad supports static fees only. **Not available on:** Abstract, Plasma, Linea, Hyper, Ink, BSC, Avalanche, Polygon. See [chain-feature-matrix](../../docs/chain-feature-matrix.md).
 
 ---
 
-## Solana Token Launches (Raydium LaunchLab)
+## Solana Token Launches (Raydium LaunchLab) — optional
+
+*Not in this fork’s supported chains; retained for reference if your backend supports Solana.*
 
 Launch SPL tokens on Solana with a bonding curve mechanism that auto-migrates to a Raydium CPMM pool.
 
@@ -72,7 +68,7 @@ Launch SPL tokens on Solana with a bonding curve mechanism that auto-migrates to
 **During Bonding Curve Phase:**
 | Fee | Recipient | Description |
 |-----|-----------|-------------|
-| 1% | Bankr Platform | Platform fee |
+| 1% | Torque Platform | Platform fee |
 | 0.5% | Creator | Creator trading fee (or split with fee recipient) |
 
 **Fee Sharing (when feeRecipient specified):**
@@ -84,7 +80,7 @@ Launch SPL tokens on Solana with a bonding curve mechanism that auto-migrates to
 **At Migration (when bonding curve completes):**
 | LP Share | Recipient | Description |
 |----------|-----------|-------------|
-| 40% | Bankr Platform | Locked platform LP |
+| 40% | Torque Platform | Locked platform LP |
 | 50% | Token Creator | Locked creator LP (Fee Key NFT) |
 | 10% | Burned | Deflationary mechanism |
 
@@ -107,7 +103,7 @@ Launch SPL tokens on Solana with a bonding curve mechanism that auto-migrates to
 **Tokens with Fee Sharing Arrangement:**
 - BOTH creator AND fee recipient can initiate claims
 - Fees automatically split: 99.9% to recipient, 0.1% to creator
-- Gas is sponsored by Bankr (free for users)
+- Gas is sponsored by Torque (free for users)
 - Use "Claim my fees for TOKEN" (works for either party)
 
 **Post-Migration Fee Claiming:**
@@ -171,7 +167,7 @@ Optional vesting for team tokens or investor allocations.
 | Transfer Fee Rights | ~0.005 SOL | No |
 | Claim Fee NFT | ~0.005 SOL | No |
 
-Gas is sponsored for token launches within daily limits (1/day standard, 10/day Bankr Club).
+Gas is sponsored for token launches within daily limits (1/day standard, 10/day Torque Club).
 Shared fee claims are always sponsored to ensure atomic claim+transfer.
 
 ### Rate Limits
@@ -179,7 +175,7 @@ Shared fee claims are always sponsored to ensure atomic claim+transfer.
 | User Type | Daily Limit | Gas Sponsored |
 |-----------|-------------|---------------|
 | Standard Users | Unlimited | 1 token/day |
-| Bankr Club Members | Unlimited | 10 tokens/day |
+| Torque Club Members | Unlimited | 10 tokens/day |
 
 Users can launch additional tokens beyond sponsored limits by paying ~0.01 SOL gas.
 
@@ -187,7 +183,7 @@ Users can launch additional tokens beyond sponsored limits by paying ~0.01 SOL g
 
 ## EVM Token Launches (Clanker)
 
-Deploy ERC20 tokens on Base and Unichain using Clanker.
+Deploy ERC20 tokens on any supported chain (see [chains-config](../../docs/chains-config.md)) using Clanker.
 
 ### Deployment Parameters
 
@@ -204,11 +200,10 @@ Deploy ERC20 tokens on Base and Unichain using Clanker.
 ### Prompt Examples
 
 **Deploy tokens:**
-- "Deploy a token called BankrFan with symbol BFAN"
+- "Deploy a token called TorqueFan with symbol BFAN"
 - "Create a memecoin: name=DogeKiller, symbol=DOGEK"
 - "Deploy token with website myproject.com and Twitter @myproject"
 - "Create a token on Base"
-- "Launch new token on Unichain"
 
 **Claim fees:**
 - "Claim fees for my token MTK"
@@ -225,7 +220,7 @@ Deploy ERC20 tokens on Base and Unichain using Clanker.
 | User Type | Daily Limit |
 |-----------|-------------|
 | Standard Users | 1 token/day |
-| Bankr Club Members | 10 tokens/day |
+| Torque Club Members | 10 tokens/day |
 
 ### Fee Structure
 
@@ -241,12 +236,6 @@ Deploy ERC20 tokens on Base and Unichain using Clanker.
 - Growing ecosystem
 - Easy liquidity provision
 
-**Unichain:**
-- Secondary option
-- Low cost
-- Newer ecosystem
-- Less liquidity
-
 ### Deployment Process
 
 1. **Specify Parameters**: Name, symbol (required); description, social links (optional)
@@ -259,7 +248,7 @@ Deploy ERC20 tokens on Base and Unichain using Clanker.
 
 | Issue | Chain | Resolution |
 |-------|-------|------------|
-| Rate limit reached | Both | Wait 24 hours or upgrade to Bankr Club |
+| Rate limit reached | Both | Wait 24 hours or upgrade to Torque Club |
 | Name/symbol taken | EVM | Choose different name |
 | Insufficient SOL | Solana | Add SOL for gas fees |
 | NFT not found | Solana | Token may still be on bonding curve |

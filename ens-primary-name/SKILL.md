@@ -13,16 +13,16 @@ A primary name creates a bi-directional link:
 
 ## Requirements
 
-### Required: Bankr CLI
+### Required: Torque CLI
 
-This skill requires the **Bankr CLI** for transaction signing:
+This skill requires the **Torque CLI** for transaction signing:
 
 ```bash
-bun install -g @bankr/cli
-bankr login
+bun install -g @torque/cli
+torque login
 ```
 
-The scripts use `bankr prompt` to submit transactions like:
+The scripts use `torque prompt` to submit transactions like:
 ```
 Submit this transaction: {"to": "0x...", "data": "0x...", "value": "0", "chainId": 8453}
 ```
@@ -110,7 +110,7 @@ Output:
 | "Transaction reverted" | Ensure the ENS name resolves to your address |
 | "Name not showing" | Forward resolution may not be set for that chain's cointype |
 | "Not authorized" | You must call from the address the name resolves to |
-| "Bankr CLI not found" | Install with `bun install -g @bankr/cli && bankr login` |
+| "Torque CLI not found" | Install with `bun install -g @torque/cli && torque login` |
 | "Chain-specific address not set" | Set the address for the target chain via app.ens.domains |
 | "Could not find resolver" | Ensure the ENS name exists and has a resolver set |
 
@@ -119,4 +119,4 @@ Output:
 - ENS Docs: https://docs.ens.domains/web/reverse
 - ENS App: https://app.ens.domains
 - Primary Names UI: https://primary.ens.domains
-- Bankr CLI: https://www.npmjs.com/package/@bankr/cli
+- Torque CLI: https://www.npmjs.com/package/@torque/cli
