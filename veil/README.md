@@ -1,7 +1,7 @@
 # Veil skill (draft)
 
 This is a draft skill folder intended for submission to:
-https://github.com/BankrBot/openclaw-skills
+https://github.com/camconrad/openclaw-skills
 
 It wraps the local `veildotcash-sdk` checkout and optionally uses Torque Agent API to sign & submit the unsigned deposit/register transactions.
 

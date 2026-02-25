@@ -2,12 +2,12 @@
 
 Pre-built capabilities for ai agents to interact with crypto infrastructure. Skills enable autonomous DeFi operations, token launches, onchain messaging, and protocol integrations through natural language interfaces.
 
-Public repository of skills for [OpenClaw](https://github.com/BankrBot/openclaw-skills) (formerly Clawdbot) — including [Torque](https://app.torque.fi/assistant) skills and community-contributed skills from other providers.
+Public repository of skills for [OpenClaw](https://github.com/camconrad/openclaw-skills) (formerly Clawdbot) — including [Torque](https://app.torque.fi/assistant) skills and community-contributed skills from other providers.
 
 ## Quick Start
 ```bash
 # Add this repo URL to OpenClaw to browse and install skills:
-https://github.com/BankrBot/openclaw-skills
+https://github.com/camconrad/openclaw-skills
 ```
 
 Skills are drop-in modules. No additional configuration required for basic usage.
@@ -22,15 +22,10 @@ Skills are drop-in modules. No additional configuration required for basic usage
 | [8004.org](https://8004.org) | [erc-8004](erc-8004/) | Ethereum agent registry using ERC-8004 standard. Mint agent NFTs, establish onchain identity, build reputation. |
 | botchan                    | [botchan](botchan/) | Onchain messaging protocol on Base. Agent feeds, DMs, permanent data storage. |
 | [Clanker](https://clanker.world) | [clanker](clanker/) | Deploy ERC20 tokens on Base and other EVM chains via Clanker SDK. |
-| [Coinbase](https://onchainkit.xyz) | [onchainkit](onchainkit/) | Build onchain apps with React components from Coinbase's OnchainKit. |
 | [Endaoment](https://endaoment.org) | [endaoment](endaoment/) | Donate to charities onchain via Endaoment. Supports Base, Ethereum, Optimism. |
 | [ENS](https://ens.domains) | [ens-primary-name](ens-primary-name/) | Set your primary ENS name on Base and other L2s. |
 | [qrcoin](https://qrcoin.fun) | [qrcoin](qrcoin/) | QR code auction platform on Base. Programmatic bidding for URL display. |
 | [Veil Cash](https://veil.cash) | [veil](veil/) | Privacy and shielded transactions on Base via ZK proofs. |
-| yoink                      | [yoink](yoink/) | Onchain capture-the-flag on Base. |
-| base                       | —               | Planned                                                                                               |
-| neynar                     | —               | Planned                                                                                               |
-| zapper                     | —               | Planned                                                                                               |
 
 ## Structure
 
@@ -55,13 +50,8 @@ openclaw-skills/
 ├── endaoment/            # Charity donations
 ├── ens-primary-name/     # ENS reverse resolution
 ├── erc-8004/             # Agent registration
-├── onchainkit/           # Coinbase OnchainKit
 ├── veil/                 # Privacy/shielded txns
-├── qrcoin/               # QR code auctions
-├── yoink/                # Capture-the-flag game
-├── base/                 # (placeholder)
-├── neynar/               # (placeholder)
-└── zapper/               # (placeholder)
+└── qrcoin/               # QR code auctions
 ```
 
 ## Install Instructions
@@ -69,7 +59,7 @@ openclaw-skills/
 Give OpenClaw the URL to this repo and it will let you choose which skill to install.
 
 ```
-https://github.com/BankrBot/openclaw-skills
+https://github.com/camconrad/openclaw-skills
 ```
 
 ## Use Cases
